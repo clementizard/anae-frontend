@@ -1,0 +1,54 @@
+{
+    "env": {
+        "node": true,
+        "browser": true,
+        "cypress/globals": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react-hooks",
+        "cypress"
+    ],
+    "rules": {
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "import/no-extraneous-dependencies": [
+            "error",
+            { "devDependencies": true }
+        ],
+        "linebreak-style": "off",
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "import/no-dynamic-require": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+        "react/forbid-prop-types": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".js", ".jsx"]
+            }
+        ],
+        "jsx-a11y/anchor-is-valid": "warn",
+        "function-paren-newline": "off",
+        "no-mixed-operators": "off",
+        "no-confusing-arrow": "off",
+        "global-require": "off",
+        "curly": "off",
+        "react/jsx-one-expression-per-line": "off",
+        "react/jsx-wrap-multilines": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "babel-module": {}
+        }
+    },
+    "extends": [
+        "airbnb",
+        "airbnb/hooks",
+        "plugin:cypress/recommended"
+    ]
+}

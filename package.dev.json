@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "set NODE_ENV=development&& razzle start",
+    "build": "razzle build",
+    "test": "razzle test --env=jsdom",
+    "analyze": "set BUNDLE_ANALYZE=true&& razzle build",
+    "lint": "eslint src/**"
+  }
+}

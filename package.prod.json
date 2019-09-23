@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "NODE_ENV=production node build/server.js",
+    "build": "razzle build",
+    "heroku-postbuild": "yarn run build"
+  },
+  "engines": {
+    "node": "12.9.x",
+    "yarn": "1.17.x"
+  }
+}

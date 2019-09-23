@@ -1,0 +1,11 @@
+<svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 28.89 28.89">
+    <defs>
+        <style>.cls-1{fill:none;stroke:white;stroke-miterlimit:10;stroke-width:2px}</style></defs><title>Asset 1</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1">
+    <path class="cls-1" shape-rendering="geometricPrecision"
+          d="M28.5,28.39C16.17,27.9,7.42,23.72,3.37,15.63c-2-4-3-9.2-2.86-15.1"
+    />
+    <path class="cls-1" shape-rendering="geometricPrecision"
+          d="M28.39,28.5C27.9,16.17,23.72,7.42,15.63,3.37c-4-2-9.2-3-15.1-2.86"
+    />
+</g></g></svg>
