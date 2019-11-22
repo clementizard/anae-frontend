@@ -30,6 +30,8 @@
     "react-is": "16.12.0",
     "react-loadable": "^5.5.0",
     "react-markdown": "^4.2.2",
+    "react-parallax": "^2.2.4",
+    "react-scrollchor": "^6.0.0",
     "react-use": "13.8.1",
     "react-waypoint": "^9.0.2",
     "styled-components": "^5.0.0-beta.8"

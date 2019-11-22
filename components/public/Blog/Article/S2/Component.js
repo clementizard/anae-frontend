@@ -8,125 +8,55 @@ import Drawer from '../common/Drawer';
 import SectionImage from './SectionImage';
 import {
   Container,
-  SectionTitle,
   SectionText,
   Sections,
   ReturnBtn,
 } from './Styles';
 import { propTypes, defaultProps } from './Props';
 
-const defaultScrollInfos = {
-  recordScroll: false,
-  currentSection: 0,
-};
-
 const S2 = ({
-  height,
   sections,
+  height,
 }) => {
-  const imageHeight = Math.round(height / 3); // 33% of the page
+  const third = Math.round(height / 3); // 33% of the page
+  const imageHeight = third >= 350 ? 350 : third;
 
-  const [waypointStates, setWaypointStates] = useState([[], [], []]);
-  const [scrollInfos, setScrollInfos] = useState(defaultScrollInfos);
-  const {
-    recordScroll,
-    currentSection,
-  } = scrollInfos;
-  const scrollRef = useRef();
+  const [currentSection, setCurrentSection] = useState(0);
 
-  const handleMobileWaypointEnter = (sectionId, waypointId) => () => {
-    // Le premier point de la section SectionId viens d'entrer dans le viewport
-    // Et le second est deja la. Nous venons de descendre le contenu
-    // La section devrait etre la precedente.
-    if (waypointId === 0 && waypointStates[sectionId][1] === true) {
-      setScrollInfos({
-        recordScroll: false,
-        currentSection: sectionId - 1,
-      });
+  const handleWaypointEnter = (sectionId) => () => {
+    if (currentSection > sectionId) {
+      setCurrentSection(sectionId);
     }
-    // Le second point viens d'etre affiche mais le premier ne l'est pas.
-    // On est en train de descendre l'affichage.
-    // On doit ecouter le scroll et descendre l'image.
-    if (waypointId === 1 && waypointStates[sectionId][0] === false) {
-      setScrollInfos({
-        recordScroll: true,
-        currentSection: sectionId,
-      });
-    }
-    waypointStates[sectionId][waypointId] = true;
-    setWaypointStates(waypointStates);
   };
-  const handleMobileWaypointLeave = (sectionId, waypointId) => () => {
-    // Le premier point viens de quitter l'affichage et
-    // Le second est toujours a l'ecran. On monte l'affichage
-    // On doit ecouter le scroll et monter l'image
-    if (waypointId === 0 && waypointStates[sectionId][1] === true) {
-      setScrollInfos({
-        recordScroll: true,
-        currentSection: sectionId,
-      });
+  const handleWaypointLeave = (sectionId) => () => {
+    if (currentSection < sectionId) {
+      setCurrentSection(sectionId);
     }
-    // Le second point viens de quitter l'affichage et le premier n'etais plus affiche.
-    // On doit garder l'etat tel qu'il est actuellement.
-    if (waypointId === 1 && waypointStates[sectionId][0] === false) {
-      setScrollInfos({
-        ...scrollInfos,
-        recordScroll: false,
-      });
-    }
-    waypointStates[sectionId][waypointId] = false;
-    setWaypointStates(waypointStates);
-  };
-
-  const handleChangeSection = (id) => {
-    console.log('Should scroll to: ', sections[id].title);
   };
 
   return (
-    <Container>
-      <ReturnBtn>
-        <a href="/blog/">
-          <IconButton aria-label="menu">
-            <ArrowBack />
-          </IconButton>
-        </a>
-      </ReturnBtn>
+    <>
       <Drawer
         sections={sections}
         selectedSection={currentSection}
-        onArticleClick={handleChangeSection}
       />
-      <SectionImage
-        height={imageHeight}
-        sections={sections}
-        currentSection={currentSection}
-        scrollRef={scrollRef}
-        recordScroll={recordScroll}
-      />
-      <Sections
-        marginTop={imageHeight}
-        ref={scrollRef}
-      >
-        {sections.map((section, i) => (
-          <Fragment key={section.title}>
-            {Boolean(i) && <SectionTitle>{section.title}</SectionTitle>}
-            <Waypoint
-              topOffset={imageHeight}
-              bottomOffset={-imageHeight}
-              onEnter={handleMobileWaypointEnter(i, 0)}
-              onLeave={handleMobileWaypointLeave(i, 0)}
-            />
-            <Waypoint
-              onEnter={handleMobileWaypointEnter(i, 1)}
-              onLeave={handleMobileWaypointLeave(i, 1)}
-            />
-            <SectionText>
-              <ReactMarkdown source={section.text}/>
-            </SectionText>
-          </Fragment>
-        ))}
-      </Sections>
-    </Container>
+      {sections.map((section, i) => (
+        <Fragment key={section.title}>
+          <Waypoint
+            onEnter={handleWaypointEnter(i)}
+            onLeave={handleWaypointLeave(i)}
+          />
+          <SectionImage
+            height={imageHeight}
+            title={section.title}
+            image={section.url}
+          />
+          <SectionText>
+            <ReactMarkdown source={section.text}/>
+          </SectionText>
+        </Fragment>
+      ))}
+    </>
   );
 };
 S2.propTypes = propTypes;

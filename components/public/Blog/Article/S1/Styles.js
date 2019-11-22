@@ -2,6 +2,9 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  height: var(--fullHeight);
+  width: 100vw;
+  position: relative;
 `;
 export const Sections = styled(forwardRef(({ marginTop, ...props }, innerRef) => <div {...props} ref={innerRef} />))`
   height: calc((var(--fullHeight) - ${({ marginTop }) => marginTop}px) - (16px * 2)); // screen - image size - padding
@@ -13,10 +16,15 @@ export const Sections = styled(forwardRef(({ marginTop, ...props }, innerRef) =>
   background-color: white;
   box-shadow: inset 0px 6px 6px -3px rgba(0, 0, 0, 0.5);
 `;
+export const SectionTitle = styled.div`
+	font-size: 1.8rem;
+  font-weight: 600;
+  padding: 16px 0;
+`;
 export const SectionText = styled.div`
-  line-height: 29px;
-  font-size: 1.5rem;
-  padding: 20px 24px;
+  line-height: 25px;
+  font-size: 1.1rem;
+  padding: 20px 0;
 `;
 export const ReturnBtn = styled.div`
 	position: fixed;
