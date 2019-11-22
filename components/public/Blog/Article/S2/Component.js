@@ -2,8 +2,9 @@ import React, { Fragment, useRef, useState } from 'react';
 import { Waypoint } from 'react-waypoint';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import ReactMarkdown from 'react-markdown';
 
-import Drawer from './Drawer';
+import Drawer from '../common/Drawer';
 import SectionImage from './SectionImage';
 import {
   Container,
@@ -23,8 +24,7 @@ const S2 = ({
   height,
   sections,
 }) => {
-  const third = Math.round(height / 3); // 33% of the page
-  const imageHeight = third > 250 ? 250 : third; // Max 250px
+  const imageHeight = Math.round(height / 3); // 33% of the page
 
   const [waypointStates, setWaypointStates] = useState([[], [], []]);
   const [scrollInfos, setScrollInfos] = useState(defaultScrollInfos);
@@ -120,7 +120,9 @@ const S2 = ({
               onEnter={handleMobileWaypointEnter(i, 1)}
               onLeave={handleMobileWaypointLeave(i, 1)}
             />
-            <SectionText>{section.text}</SectionText>
+            <SectionText>
+              <ReactMarkdown source={section.text}/>
+            </SectionText>
           </Fragment>
         ))}
       </Sections>
