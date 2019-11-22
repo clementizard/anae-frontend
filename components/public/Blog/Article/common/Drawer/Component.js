@@ -1,4 +1,6 @@
 import React, { memo, useState } from 'react';
+import Scrollchor from 'react-scrollchor';
+import { useRouter } from 'next/router'
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -42,19 +44,17 @@ const swipePower = (offset, velocity) => {
 const Drawer = ({
   sections,
   selectedSection,
-  onArticleClick,
 }) => {
+  const router = useRouter();
+  
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
   const [openArticle, setOpenArticle] = useState(true);
   const handleOpenArticle = () => setOpenArticle(!openArticle);
-  const handleArticleClicked = id => () => {
+  const handleClick = href => () => {
     setOpen(false);
-    onArticleClick(id);
-  };
-  const handleClick = id => () => {
-    console.log('Should redirect to: ', `/${id}/`)
+    router.push(href);
   };
 
   return (
@@ -97,61 +97,67 @@ const Drawer = ({
             <Collapse in={openArticle} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {sections.map(({ title }, id) => (
-                  <ListItem
-                    button
-                    style={{ paddingLeft: 32 }}
-                    selected={selectedSection === id}
-                    onClick={handleArticleClicked(id)}
+                  <Scrollchor
+                    to={`#section${id}`}
+                    target="sections"
+                    style={{ color: 'inherit', textDecoration: 'none' }}
                   >
+                    <ListItem
+                      button
+                      style={{ paddingLeft: 32 }}
+                      selected={selectedSection === id}
+                      onClick={handleOpen}
+                    >
                       <ListItemText primary={title}/>
-                  </ListItem>
+                    </ListItem>
+                  </Scrollchor>
                 ))}
               </List>
             </Collapse>
             <Divider light />
-            <ListItem button onClick={handleClick('blog')}>
+            <ListItem button onClick={handleClick('/blog')}>
               <ListItemIcon>
                 {/* ICON */}
               </ListItemIcon>
               <ListItemText primary="Blog" />
             </ListItem>
             <Divider light />
-            <ListItem button onClick={handleClick('products/collections')}>
+            <ListItem button onClick={handleClick('/products/collections')}>
               <ListItemIcon>
                 {/* ICON */}
               </ListItemIcon>
               <ListItemText primary="Collections" />
             </ListItem>
             <Divider light />
-            <ListItem button onClick={handleClick('products/bracelets')}>
+            <ListItem button onClick={handleClick('/products/bracelets')}>
               <ListItemIcon>
                 {/* ICON */}
               </ListItemIcon>
               <ListItemText primary="Bracelets" />
             </ListItem>
             <Divider light />
-            <ListItem button onClick={handleClick('products/earrings')}>
+            <ListItem button onClick={handleClick('/products/earrings')}>
               <ListItemIcon>
                 {/* ICON */}
               </ListItemIcon>
               <ListItemText primary="Boucles d'oreilles" />
             </ListItem>
             <Divider light />
-            <ListItem button onClick={handleClick('products/necklaces')}>
+            <ListItem button onClick={handleClick('/products/necklaces')}>
               <ListItemIcon>
                 {/* ICON */}
               </ListItemIcon>
               <ListItemText primary="Malas" />
             </ListItem>
             <Divider light />
-            <ListItem button onClick={handleClick('products/kids')}>
+            <ListItem button onClick={handleClick('/products/kids')}>
               <ListItemIcon>
                 {/* ICON */}
               </ListItemIcon>
               <ListItemText primary="Enfants" />
             </ListItem>
             <Divider light />
-            <ListItem button onClick={handleClick('products/others')}>
+            <ListItem button onClick={handleClick('/products/others')}>
               <ListItemIcon>
                 {/* ICON */}
               </ListItemIcon>
