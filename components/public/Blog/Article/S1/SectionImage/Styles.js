@@ -48,10 +48,7 @@ export const Title = styled.div`
 	color: white;
 	text-shadow: 0 3px 6px rgba(0,0,0,0.5);
 `;
-export const ResizeBtn = styled(({ ...props }) => <motion.div {...props} />)`
-	position: fixed;
-	right: 12px;
-	top: 72px;
+export const ResizeBtn = styled(motion.div)`
 	width: 48px;
 	height: 48px;
 	cursor: pointer;

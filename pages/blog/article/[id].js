@@ -1,14 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { useContext, useMemo } from 'react';
-import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
+import IconButton from 'Components/common/IconButton';
 import { S1, S2, S3, S4, S5 } from 'Styles/common/Sizes';
 import DeviceContext from 'Services/Device';
 import { sections } from './Tools';
 import S1Component from 'Components/public/Blog/Article/S1';
 import S2Component from 'Components/public/Blog/Article/S2';
-import { ReturnBtn } from 'Components/public/Blog/Article/S2/Styles';
 
 const Article = () => {
 	const { width, height } = useContext(DeviceContext);
@@ -23,13 +22,16 @@ const Article = () => {
 			}}
 			{...props}
 		>
-			<ReturnBtn>
-				<a href="/blog">
-					<IconButton aria-label="back">
-						<ArrowBack />
-					</IconButton>
-				</a>
-			</ReturnBtn>
+			<IconButton
+				href="/blog"
+				ariaLabel="back"
+				Icon={ArrowBack}
+				containerStyles={{
+					position: 'fixed',
+					top: 12,
+					left: 12,
+				}}
+			/>
 			{children}
 		</div>
 	);

@@ -25,6 +25,7 @@ export const SectionText = styled.div`
   line-height: 25px;
   font-size: 1.1rem;
   padding: 20px 0;
+	color: rgba(0, 0, 0, 0.65);
 `;
 export const ReturnBtn = styled.div`
 	position: fixed;

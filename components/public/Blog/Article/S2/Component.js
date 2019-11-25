@@ -7,10 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import Drawer from '../common/Drawer';
 import SectionImage from './SectionImage';
 import {
-  Container,
   SectionText,
-  Sections,
-  ReturnBtn,
 } from './Styles';
 import { propTypes, defaultProps } from './Props';
 
@@ -62,6 +59,27 @@ const S2 = ({
 S2.propTypes = propTypes;
 S2.defaultProps = defaultProps;
 S2.whyDidYouRender = true;
+
+/*
+Todo:
+  - Virer le parallax
+  - Laisser les images Statiques
+  - Faire le menu S2+
+  - Faire la version S3+ (Split screen)
+  - Page de blog S1
+  - Page de blog S2+
+  - Async load
+  - Logs https://www.npmjs.com/package/address
+  - Produits / Commandes / User DB
+  - Page Produits (Aka Home) S1+
+  - Page Produit S1, S2+
+  - Page Perso S1, S2+
+  - Mails https://stackabuse.com/how-to-send-emails-with-node-js/
+  - Admin
+  - Admin Insta
+  - Admin Logs
+  - Admin Produits
+ */
 
 export default S2;
 

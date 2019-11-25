@@ -11,8 +11,10 @@ export const Btn = styled(({ open, ...props }) => <motion.div {...props} />)`
 	cursor: pointer;
 	z-index: 5;
 	> button {
-	  color: ${({ open }) => open ? 'rgba(0, 0, 0, 0.6)' : 'rgba(255, 255, 255, 0.6)'};
-	  background: radial-gradient(circle, rgba(0,0,0,0.5) -200%, rgba(0,0,0,0) 60%);
+	  color: ${({ open }) => open ? 'rgba(0, 0, 0, 0.6)' : 'rgb(255, 255, 255)'};
+	  background: ${({ open }) => open ?
+			'radial-gradient(circle, rgba(0,0,0,0.5) -200%, rgba(0,0,0,0) 60%)' :
+			'radial-gradient(circle,rgb(0,0,0) -75%,rgba(0,0,0,0) 75%)'};
 	}
 `;
 export const Panel = styled(motion.div)`

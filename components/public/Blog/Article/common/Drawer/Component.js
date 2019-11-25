@@ -98,6 +98,7 @@ const Drawer = ({
               <List component="div" disablePadding>
                 {sections.map(({ title }, id) => (
                   <Scrollchor
+                    key={id}
                     to={`#section${id}`}
                     target="sections"
                     style={{ color: 'inherit', textDecoration: 'none' }}

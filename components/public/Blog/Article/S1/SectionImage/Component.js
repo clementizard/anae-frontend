@@ -5,10 +5,10 @@
  */
 import React, { useState, useMemo, useEffect, memo } from 'react';
 import { useScroll } from 'react-use';
-import IconButton from '@material-ui/core/IconButton';
 import PhotoSizeSelectLarge from '@material-ui/icons/PhotoSizeSelectLarge';
 import PhotoSizeSelectSmall from '@material-ui/icons/PhotoSizeSelectSmall';
 
+import IconButton from 'Components/common/IconButton';
 import {
   Container,
   Content,
@@ -54,8 +54,10 @@ const SectionImage = ({
 
   const [active, setActive] = useState(false);
   const handleActive = id => () => {
-    if (id === active) setActive(false);
-    else setActive(id);
+    const formattedId = id === -1 ? 0 : id;
+    
+    if (formattedId === active) setActive(false);
+    else setActive(formattedId);
   };
 
   const { y } = useScroll(scrollRef);
@@ -78,6 +80,7 @@ const SectionImage = ({
   //   }
   //   setY(scrollY);
   // }, null, scrollRef);
+  // Maybe use a variable that changes when recordScroll = true && y !== prevVariable
 
   const horizontalDelta = horizontalBase - y;
   let sectionDelta = 0;
@@ -87,15 +90,31 @@ const SectionImage = ({
 
   return useMemo(() => (
     <Container height={height}>
-      <ResizeBtn
-        variants={ResizeBtnVariants}
-        initial="closed"
-        animate={active !== false ? 'open' : 'closed'}
-      >
-        <IconButton aria-label="menu" onClick={handleActive(sectionDelta !== 0 && sectionDelta > (-height) ? currentSection - 1 : currentSection)}>
-          {active !== false ? <PhotoSizeSelectSmall /> : <PhotoSizeSelectLarge />}
-        </IconButton>
-      </ResizeBtn>
+      <IconButton
+        containerStyles={{
+          position: 'fixed',
+          right: 12,
+          top: 72,
+          zIndex: 2,
+        }}
+        animProps={{
+          icons: {
+            active: PhotoSizeSelectSmall,
+            inactive: PhotoSizeSelectLarge,
+          },
+          labels: {
+            active: 'open',
+            inactive: 'closed',
+          },
+          others: {
+            variants: ResizeBtnVariants,
+            initial: 'closed',
+          },
+        }}
+        activable
+        onClick={handleActive((sectionDelta !== 0 && sectionDelta > (-height)) ? currentSection - 1 : currentSection)}
+        ariaLabel="menu"
+      />
       {sections.map((section, id) => {
         let position = 0;
         if (id) { // NOT first section

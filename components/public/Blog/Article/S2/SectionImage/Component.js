@@ -50,10 +50,10 @@ const SectionImage = ({
     },
   };
 
-  const [active, setActive] = useState(false);
-  const handleActive = () => {
-    setActive(!active);
-  };
+  // const [active, setActive] = useState(false);
+  // const handleActive = () => {
+  //   setActive(!active);
+  // };
 
   return (
     <Parallax
