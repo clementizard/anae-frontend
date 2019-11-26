@@ -5,13 +5,13 @@ export const propTypes = {
 	containerStyles: PropTypes.object,
 	href: PropTypes.string,
 	ariaLabel: PropTypes.string,
-	Icon: PropTypes.ReactComponent,
+	Icon: PropTypes.object,
 	activable: PropTypes.bool,
 	defaultActive: PropTypes.bool,
 	animProps: PropTypes.shape({
 		icons: PropTypes.shape({
-			active: PropTypes.ReactComponent,
-			inactive: PropTypes.ReactComponent,
+			active: PropTypes.oneOfType([ PropTypes.object, PropTypes.symbol ]),
+			inactive: PropTypes.oneOfType([ PropTypes.object, PropTypes.symbol ]),
 		}),
 		labels: PropTypes.shape({
 			active: PropTypes.string,

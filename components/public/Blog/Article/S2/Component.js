@@ -1,5 +1,6 @@
 import React, { Fragment, useRef, useState } from 'react';
 import { Waypoint } from 'react-waypoint';
+import Img from 'react-image';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import ReactMarkdown from 'react-markdown';
@@ -37,22 +38,33 @@ const S2 = ({
         sections={sections}
         selectedSection={currentSection}
       />
+      <div id="sections">
       {sections.map((section, i) => (
-        <Fragment key={section.title}>
+        <div
+          id={`section${i}`}
+          key={section.title}
+        >
           <Waypoint
             onEnter={handleWaypointEnter(i)}
             onLeave={handleWaypointLeave(i)}
           />
-          <SectionImage
-            height={imageHeight}
-            title={section.title}
-            image={section.url}
+          <Img
+            alt={section.alt}
+            src={section.url}
+            container={(children) => (
+              <SectionImage
+                image={children}
+                title={section.title}
+                height={imageHeight}
+              />
+            )}
           />
           <SectionText>
             <ReactMarkdown source={section.text}/>
           </SectionText>
-        </Fragment>
+        </div>
       ))}
+      </div>
     </>
   );
 };
@@ -62,8 +74,6 @@ S2.whyDidYouRender = true;
 
 /*
 Todo:
-  - Virer le parallax
-  - Laisser les images Statiques
   - Faire le menu S2+
   - Faire la version S3+ (Split screen)
   - Page de blog S1

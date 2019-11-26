@@ -14,12 +14,12 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@material-ui/core": "4.6.1",
+    "@material-ui/core": "4.7.0",
     "@material-ui/icons": "^4.5.1",
     "@welldone-software/why-did-you-render": "3.3.9",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
-    "framer-motion": "1.6.15",
+    "framer-motion": "1.6.17",
     "next": "9.1.4",
     "next-fonts": "^0.19.0",
     "prop-types": "^15.7.2",
@@ -32,7 +32,7 @@
     "react-markdown": "^4.2.2",
     "react-parallax": "^2.2.4",
     "react-scrollchor": "^6.0.0",
-    "react-use": "13.8.1",
+    "react-use": "13.9.0",
     "react-waypoint": "^9.0.2",
     "styled-components": "^5.0.0-beta.8"
   },
@@ -50,7 +50,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-react-docgen": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.6",
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "eslint-config-airbnb": "18.0.1",
     "eslint-plugin-cypress": "2.7.0",
     "eslint-plugin-import": "2.18.2",

@@ -1,9 +1,5 @@
-/**
- * Le but de la sectionImage est de delimiter et modifier la page des articles.
- * L'animation principale sert de transition entre les sections.
- * La seconde est de maximiser la photo sur l'ecran.
- */
 import React, { useState, useMemo, useEffect, memo } from 'react';
+import ReactCSSTransitionReplace from 'react-css-transition-replace';
 import { Parallax } from 'react-parallax';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoSizeSelectLarge from '@material-ui/icons/PhotoSizeSelectLarge';
@@ -15,6 +11,9 @@ import {
   ResizeBtn,
   Image,
   Title,
+  ImageContainer,
+  transitionName,
+  appearDuration,
 } from './Styles';
 import {
   propTypes,
@@ -56,17 +55,31 @@ const SectionImage = ({
   // };
 
   return (
-    <Parallax
-      bgImage={image}
-      strength={-100}
+    <ReactCSSTransitionReplace
+      transitionName={transitionName}
+      transitionAppear
+      transitionAppearTimeout={appearDuration}
     >
-      <div style={{ height }}>
+      <ImageContainer height={height}>
+        {image}
         <Title>
           {title}
         </Title>
-      </div>
-    </Parallax>
+      </ImageContainer>
+    </ReactCSSTransitionReplace>
   );
+  // return (
+  //   <Parallax
+  //     bgImage={image}
+  //     strength={-100}
+  //   >
+  //     <div style={{ height }}>
+  //       <Title>
+  //         {title}
+  //       </Title>
+  //     </div>
+  //   </Parallax>
+  // );
 };
 SectionImage.propTypes = propTypes;
 SectionImage.defaultProps = defaultProps;

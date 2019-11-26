@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-export const transitionName = `test`;
+export const transitionName = `home-background`;
 export const appearDuration = 800;
 
 export const ImageContainer = styled(({ height, ...props }) => <div {...props} />)`

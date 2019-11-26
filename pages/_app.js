@@ -23,9 +23,9 @@ class MyApp extends App {
 		return (
 			<GlobalContexts>
 				<GlobalStyles />
-				<StrictMode>
+				{/*<StrictMode>*/}
 					{getLayout(<Component {...pageProps} />)}
-				</StrictMode>
+				{/*</StrictMode>*/}
 			</GlobalContexts>
 		);
 	}

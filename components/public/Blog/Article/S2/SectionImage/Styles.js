@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+export const transitionName = `article-image`;
+export const appearDuration = 500;
+
 export const Container = styled(({ height, ...props }) => <div {...props} />)`
   position: absolute;
   height: ${({height}) => height}px;
@@ -48,22 +51,23 @@ export const Title = styled.div`
 	color: white;
 	text-shadow: 0 3px 6px rgba(0,0,0,0.5);
 `;
-export const ResizeBtn = styled(({ ...props }) => <motion.div {...props} />)`
-	position: fixed;
-	right: 12px;
-	top: 72px;
-	width: 48px;
-	height: 48px;
-	cursor: pointer;
-	z-index: 2;
-	> button {
-	  color: rgba(255, 255, 255, 0.6);
-	  background: radial-gradient(circle,rgba(0,0,0,0.5) -200%,rgba(0,0,0,0) 60%);
-	}
+export const ImageContainer = styled(({ height, ...props }) => <div {...props} />)`
+  height: ${({ height }) => height}px;
+  width: 100vw;
+  position: relative;
+
+  &.${transitionName}-appear {
+    opacity: 0.01;
+  }
+  &.${transitionName}-appear-active {
+    opacity: 1;
+    transition: opacity ${appearDuration}ms ease-out;
+  }
+
+  & > img {
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
+    width: 100%;
+  }
 `;
-
-/*
-Layout https://events.google.com/flutter-interact/
-
-et aussi pour flutter
-*/
