@@ -1,32 +1,60 @@
-import React, { StrictMode } from 'react';
+import React, {Fragment, StrictMode, useState, useEffect, useMemo} from 'react';
+import { MediaContextProvider } from 'Styles/common/Media';
 import App from 'next/app';
 
-import GlobalStyles from '../styles/common/GlobalStyle';
-import useWindowSize from "../tools/Hooks/windowSize";
-import DeviceContext from "../services/Device";
+import GlobalStyles from 'Styles/common/GlobalStyle';
+import { DeviceProvider, useDevice } from 'Services/Device/context';
+
+const GlobalLayout = ({ children }) => {
+	const { width, height } = useDevice();
+	
+	const Container = useMemo(() => ({ children, ...props }) => (
+		<div
+			style={{
+				'--fullHeight': `${height}px`,
+				'--fullWidth': `${width}px`,
+			}}
+			{...props}
+		>
+			{children}
+		</div>
+	), [width, height]);
+
+	return (
+		<Container>
+			{children}
+		</Container>
+	);
+};
 
 const GlobalContexts = ({ children }) => {
-	const { width, height } = useWindowSize();
-	
 	return (
-		<DeviceContext.Provider value={{ width, height }}>
-			{children}
-		</DeviceContext.Provider>
+		<>
+			<GlobalLayout>
+				{children}
+			</GlobalLayout>
+		</>
 	);
 };
 
 class MyApp extends App {
 	render() {
 		const { Component, pageProps } = this.props;
-		
-		const getLayout = Component.getLayout || (page => page);
+
+		// const getLayout = Component.getLayout || (page => page);
+		const Layout = Component.Layout || Fragment;
 		return (
-			<GlobalContexts>
+			<DeviceProvider>
 				<GlobalStyles />
+				<MediaContextProvider>
 				{/*<StrictMode>*/}
-					{getLayout(<Component {...pageProps} />)}
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+					{/*{getLayout(<Component {...pageProps} />)}*/}
 				{/*</StrictMode>*/}
-			</GlobalContexts>
+				</MediaContextProvider>
+			</DeviceProvider>
 		);
 	}
 }

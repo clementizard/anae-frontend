@@ -1,11 +1,8 @@
 import React, { Fragment, useRef, useState } from 'react';
 import { Waypoint } from 'react-waypoint';
 import Img from 'react-image';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowBack from '@material-ui/icons/ArrowBack';
 import ReactMarkdown from 'react-markdown';
 
-import Drawer from '../common/Drawer';
 import SectionImage from './SectionImage';
 import {
   SectionText,
@@ -34,11 +31,6 @@ const S2 = ({
 
   return (
     <>
-      <Drawer
-        sections={sections}
-        selectedSection={currentSection}
-      />
-      <div id="sections">
       {sections.map((section, i) => (
         <div
           id={`section${i}`}
@@ -64,7 +56,6 @@ const S2 = ({
           </SectionText>
         </div>
       ))}
-      </div>
     </>
   );
 };

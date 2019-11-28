@@ -12,7 +12,7 @@ const letterVariants = {
   visible: { opacity: 1 },
 };
 
-const Header = () => {
+const Header = ({ open }) => {
   return (
     <Container>
       <Wrapper>

@@ -4,7 +4,11 @@ import {} from './Styles';
 import { propTypes, defaultProps } from './Props';
 
 const Component = () => {
-  return (<></>);
+  return (
+    <>
+    
+    </>
+  );
 };
 Component.propTypes = propTypes;
 Component.defaultProps = defaultProps;

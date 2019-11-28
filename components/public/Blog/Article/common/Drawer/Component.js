@@ -81,7 +81,7 @@ const Drawer = ({
         }}
       >
         <Content>
-          <Header />
+          <Header open={open}/>
           <List
             component="nav"
             aria-labelledby="menu-list"
