@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router';
 import React, { memo, useMemo } from 'react';
 
+import { useDevice } from 'Services/Device/context';
 import { Media } from 'Styles/common/Media';
 import PublicLayout from 'Components/layouts/public';
 import { sections } from './Tools';
 import S1Component from 'Components/public/Blog/Article/S1';
 import S2Component from 'Components/public/Blog/Article/S2';
-import {useDevice} from "../../../services/Device/context";
 
 const Article = () => {
 	const { width, height } = useDevice();
 	const router = useRouter();
 	const { id } = router.query;
 
-	const Container = ({ children, ...props }) => (
+	const Container = useMemo(() => ({ children, ...props }) => (
 		<div
 			style={{
 				'--fullHeight': `${height}px`,
@@ -23,7 +23,7 @@ const Article = () => {
 		>
 			{children}
 		</div>
-	);
+	), [width, height]);
 
 	return (
 		<Container>

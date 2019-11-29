@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useEffect, useState } from 'react';
+import React, { memo, useMemo } from 'react';
 
 import { Media } from 'Styles/common/Media';
 import Nav from 'Components/public/common/Nav';
