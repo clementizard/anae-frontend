@@ -21,6 +21,8 @@ const nextConfig = {
 	enableSvg: true,
 	webpack(config) {
 		config.resolve.alias['Components'] = path.join(__dirname, 'components');
+		config.resolve.alias['CommonComponents'] = path.join(__dirname, 'components/common');
+		config.resolve.alias['PublicComponents'] = path.join(__dirname, 'components/public');
 		config.resolve.alias['Layouts'] = path.join(__dirname, 'components/common/layouts');
 		config.resolve.alias['Services'] = path.join(__dirname, 'services');
 		config.resolve.alias['Public'] = path.join(__dirname, 'public');

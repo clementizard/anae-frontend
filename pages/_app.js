@@ -1,7 +1,7 @@
 import React, { Fragment, StrictMode } from 'react';
-import { MediaContextProvider } from 'Styles/common/Media';
 import App from 'next/app';
 
+import { MediaContextProvider } from 'Styles/common/Media';
 import GlobalStyles from 'Styles/common/GlobalStyle';
 import { DeviceProvider } from 'Services/Device/context';
 
