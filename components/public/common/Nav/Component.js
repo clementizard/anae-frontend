@@ -1,12 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useList from 'react-use/lib/useList';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Popper from '@material-ui/core/Popper';
-import Paper from '@material-ui/core/Paper';
-import Grow from '@material-ui/core/Grow';
+import Fade from '@material-ui/core/Fade';
 
 import {
 	LettersAnimated,
@@ -98,22 +95,29 @@ const Nav = () => {
 			],
 		},
 	];
-	if (router.pathname.includes('article')) {
-		console.log('Im in article');
-	}
-
-	const [listOpen, { updateAt }] = useList([]);
-	const handleMenuClick = index => () => {
-		updateAt(index, !listOpen[index]);
+	// if (router.pathname.includes('article')) {
+	// 	console.log('Im in article');
+	// }
+	
+	
+	const [anchorRefArray, { updateAt }] = useList(new Array(MenuItems.length).fill(useRef(null)));
+	const [menuOpen, setMenuOpen] = useState(false);
+	const [anchorEl, setAnchorEl] = useState(null);
+	const handleMenuClick = index => (e) => {
+		console.log('menu clicked = ', index);
+		if (index === false) {
+			setMenuOpen(false);
+			setAnchorEl(null);
+		} else {
+			setMenuOpen(index);
+			setAnchorEl(e.currentTarget);
+		}
 	};
-	const handleSubMenuClick = (itemIndex, subIndex) => () => {
-		console.log(itemIndex, subIndex);
-		updateAt(itemIndex, !listOpen[itemIndex]);
+	const handleSubMenuClick = () => () => {
+		setMenuOpen(false);
 	};
 
-	const anchorRefArray = new Array(MenuItems.length).fill(useRef(null));
-
-
+	console.log(anchorEl);
 	return (
 		<Container>
 			<LogoContainer>
@@ -140,50 +144,43 @@ const Nav = () => {
 					>
 						<LinkButton
 							onClick={handleMenuClick(index)}
-							ref={anchorRefArray[index]}
-							aria-controls={listOpen[index] ? 'menu-list-grow' : undefined}
+							// ref={anchorRefArray[index]}
+							aria-controls={menuOpen === index ? 'menu-list-grow' : undefined}
 							aria-haspopup={(item.sub && item.sub.length) ? 'true' : 'false'}
 						>
 							{item.name}
 						</LinkButton>
-						{(item.sub && item.sub.length) && (
-							<Popper
-								open={listOpen[index]}
-								anchorEl={anchorRefArray[index].current}
-								role={undefined}
-								transition
-								disablePortal
-							>
-								{({ TransitionProps, placement }) => (
-									<Grow
-										{...TransitionProps}
-										style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-									>
-										<Paper>
-											<ClickAwayListener onClickAway={handleMenuClick(index)}>
-												<MenuList
-													autoFocusItem={open}
-													id="menu-list-grow"
-													// onKeyDown={handleListKeyDown}
-												>
-													{item.sub.map((subItem, subIndex) => (
-														<MenuItem
-															key={`link-sub-${index}-${subIndex}`}
-															onClick={handleSubMenuClick(index, subIndex)}
-														>
-															{subItem.name}
-														</MenuItem>
-													))}
-												</MenuList>
-											</ClickAwayListener>
-										</Paper>
-									</Grow>
-								)}
-							</Popper>
-						)}
 					</ItemContainer>
 				))}
 			</Links>
+			{(MenuItems[menuOpen] && MenuItems[menuOpen].sub) && (
+				<Menu
+					anchorEl={anchorEl}
+					anchorOrigin={{
+						horizontal: 'center',
+						vertical: 'bottom',
+					}}
+					transformOrigin={{
+						horizontal: 'center',
+						vertical: 'bottom',
+					}}
+					PaperProps={{
+						style: { transform: 'translate(0px, 42px)' }
+					}}
+					TransitionComponent={Fade}
+					open={menuOpen !== false}
+					onClose={handleMenuClick(false)}
+				>
+					{MenuItems[menuOpen].sub.map((subItem, subIndex) => (
+						<MenuItem
+							key={`link-sub-${menuOpen}-${subIndex}`}
+							onClick={handleSubMenuClick()}
+						>
+							{subItem.name}
+						</MenuItem>
+					))}
+				</Menu>
+			)}
 		</Container>
 	);
 };
