@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -12,7 +13,6 @@ export const Container = styled.div`
 	display: flex;
 `;
 export const LogoContainer = styled.div`
-	margin-left: 24px;
   height: 72px;
   width: 200px;
   > svg {

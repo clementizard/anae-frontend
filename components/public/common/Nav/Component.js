@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import useList from 'react-use/lib/useList';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 
 import {
 	LettersAnimated,
@@ -33,7 +34,21 @@ const linkVariants = {
 	},
 };
 
+const GET_ARTICLE = gql`
+    {
+        getArticle(id: "5d949e13c31d83415c1bd39b") {
+            title
+            description
+            created
+        }
+    }
+`;
+
 const Nav = () => {
+	const { loading, error, data } = useQuery(GET_ARTICLE);
+	
+	console.log('GQL: ', loading, error, data);
+
 	const [animate, setAnimate] = useState('hidden');
 	useEffect(() => setAnimate('visible'), []);
 
@@ -99,22 +114,23 @@ const Nav = () => {
 	// 	console.log('Im in article');
 	// }
 	
-	
-	const [anchorRefArray, { updateAt }] = useList(new Array(MenuItems.length).fill(useRef(null)));
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const handleMenuClick = index => (e) => {
-		console.log('menu clicked = ', index);
-		if (index === false) {
-			setMenuOpen(false);
-			setAnchorEl(null);
-		} else {
-			setMenuOpen(index);
-			setAnchorEl(e.currentTarget);
+		if (!MenuItems[index].sub || !MenuItems[index].sub.length) router.push(MenuItems[index].link);
+		else {
+			if (index === false) {
+				setMenuOpen(false);
+				setAnchorEl(null);
+			} else {
+				setMenuOpen(index);
+				setAnchorEl(e.currentTarget);
+			}
 		}
 	};
-	const handleSubMenuClick = () => () => {
+	const handleSubMenuClick = link => () => {
 		setMenuOpen(false);
+		router.push(link);
 	};
 
 	console.log(anchorEl);
@@ -174,7 +190,7 @@ const Nav = () => {
 					{MenuItems[menuOpen].sub.map((subItem, subIndex) => (
 						<MenuItem
 							key={`link-sub-${menuOpen}-${subIndex}`}
-							onClick={handleSubMenuClick()}
+							onClick={handleSubMenuClick(subItem.link)}
 						>
 							{subItem.name}
 						</MenuItem>

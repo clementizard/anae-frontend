@@ -22,27 +22,24 @@ const Footer = () => {
         // value={footerValue}
         // onChange={handleFooterValueChange}
       >
-        <a href="https://www.etsy.com/fr/shop/AnaeBoutique" target="_blank">
-          <BottomNavigationAction
-            label="Etsy"
-            value="etsy"
-            icon={<EtsySvg />}
-          />
-        </a>
-        <a href="https://www.instagram.com/anae.me/" target="_blank">
-          <BottomNavigationAction
-            label="Instagram"
-            value="instagram"
-            icon={<InstagramSvg />}
-          />
-        </a>
-        <a href="https://www.facebook.com/anae.me.boutique/" target="_blank">
-          <BottomNavigationAction
-            label="Facebook"
-            value="facebook"
-            icon={<FacebookSvg />}
-          />
-        </a>
+        <BottomNavigationAction
+          component="a"
+          icon={<EtsySvg />}
+          href="https://www.etsy.com/fr/shop/AnaeBoutique"
+          target="_blank"
+        />
+        <BottomNavigationAction
+          component="a"
+          icon={<InstagramSvg />}
+          href="https://www.instagram.com/anae.me/"
+          target="_blank"
+        />
+        <BottomNavigationAction
+          component="a"
+          icon={<FacebookSvg />}
+          href="https://www.facebook.com/anae.me.boutique/"
+          target="_blank"
+        />
       </BottomNavigation>
     </Container>
   );

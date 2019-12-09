@@ -117,51 +117,30 @@ const Drawer = ({
 						</Collapse>
 						<Divider light />
 						<ListItem button onClick={handleClick('/blog')}>
-							<ListItemIcon>
-								{/* ICON */}
-							</ListItemIcon>
 							<ListItemText primary="Blog" />
 						</ListItem>
 						<Divider light />
 						<ListItem button onClick={handleClick('/products/collections')}>
-							<ListItemIcon>
-								{/* ICON */}
-							</ListItemIcon>
 							<ListItemText primary="Collections" />
 						</ListItem>
 						<Divider light />
 						<ListItem button onClick={handleClick('/products/bracelets')}>
-							<ListItemIcon>
-								{/* ICON */}
-							</ListItemIcon>
 							<ListItemText primary="Bracelets" />
 						</ListItem>
 						<Divider light />
 						<ListItem button onClick={handleClick('/products/earrings')}>
-							<ListItemIcon>
-								{/* ICON */}
-							</ListItemIcon>
 							<ListItemText primary="Boucles d'oreilles" />
 						</ListItem>
 						<Divider light />
 						<ListItem button onClick={handleClick('/products/necklaces')}>
-							<ListItemIcon>
-								{/* ICON */}
-							</ListItemIcon>
 							<ListItemText primary="Malas" />
 						</ListItem>
 						<Divider light />
 						<ListItem button onClick={handleClick('/products/kids')}>
-							<ListItemIcon>
-								{/* ICON */}
-							</ListItemIcon>
 							<ListItemText primary="Enfants" />
 						</ListItem>
 						<Divider light />
 						<ListItem button onClick={handleClick('/products/others')}>
-							<ListItemIcon>
-								{/* ICON */}
-							</ListItemIcon>
 							<ListItemText primary="Autres" />
 						</ListItem>
 						<Divider light />

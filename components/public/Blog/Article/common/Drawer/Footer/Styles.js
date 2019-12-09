@@ -9,16 +9,14 @@ export const Container = styled.div`
 	box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.1);
 	> div > a {
 		width: 100%;
-		> button {
-			width: 100%;
-			height: 56px;
-			> span {
-				color: black;
-			  > svg {
-					width: 25px;
-					path, circle {
-						fill: rgba(0, 0, 0, 0.7);
-					}
+		height: 56px;
+		padding: 0 !important;
+		> span {
+			color: black;
+		  > svg {
+				width: 25px;
+				path, circle {
+					fill: rgba(0, 0, 0, 0.7);
 				}
 			}
 		}
