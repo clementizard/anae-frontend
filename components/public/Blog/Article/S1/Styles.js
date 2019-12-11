@@ -6,11 +6,11 @@ export const Container = styled.div`
   width: 100vw;
   position: relative;
 `;
-export const Sections = styled(forwardRef(({ marginTop, ...props }, innerRef) => <div {...props} ref={innerRef} />))`
-  height: calc((var(--fullHeight) - ${({ marginTop }) => marginTop}px) - (16px * 2)); // screen - image size - padding
+export const Sections = styled(forwardRef((props, innerRef) => <div {...props} ref={innerRef} />))`
+  height: calc((var(--fullHeight) - (var(--fullHeight) / 3)) - (16px * 2)); // screen - image size - padding
   width: auto;
   position: absolute;
-  top: ${({ marginTop }) => marginTop}px;
+  top: calc(var(--fullHeight) / 3);
   overflow: auto;
   padding: 16px 24px;
   background-color: white;

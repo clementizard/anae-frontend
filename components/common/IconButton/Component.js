@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import MuiIconButton from '@material-ui/core/IconButton';
 
 import { Container } from './Styles';
@@ -51,5 +51,5 @@ IconButton.propTypes = propTypes;
 IconButton.defaultProps = defaultProps;
 IconButton.whyDidYouRender = true;
 
-export default IconButton;
+export default memo(IconButton);
 

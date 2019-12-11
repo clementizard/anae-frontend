@@ -5,7 +5,7 @@ export const propTypes = {
 	containerStyles: PropTypes.object,
 	href: PropTypes.string,
 	ariaLabel: PropTypes.string,
-	Icon: PropTypes.object,
+	Icon: PropTypes.oneOfType([ PropTypes.object, PropTypes.symbol ]),
 	activable: PropTypes.bool,
 	defaultActive: PropTypes.bool,
 	animProps: PropTypes.shape({

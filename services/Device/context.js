@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import useWindowSize from 'Tools/Hooks/windowSize';
+import useWindowSize from 'Hooks/windowSize';
 
 const DeviceContext = createContext();
 

@@ -1,4 +1,4 @@
-import React, { Fragment, StrictMode } from 'react';
+import React, { Fragment } from 'react';
 import App from 'next/app';
 import { ApolloProvider } from '@apollo/react-hooks';
 
@@ -7,23 +7,34 @@ import GlobalStyles from 'Styles/common/GlobalStyle';
 import { DeviceProvider } from 'Services/Device/context';
 import withApollo from 'Services/withApollo';
 
+if (process.env.NODE_ENV !== 'production') {
+	const whyDidYouRender = require('@welldone-software/why-did-you-render/dist/no-classes-transpile/umd/whyDidYouRender.min.js');
+	whyDidYouRender(React);
+}
+
+const ContextProviders = ({ children, apollo }) => (
+	<MediaContextProvider>
+		<ApolloProvider client={apollo}>
+			{children}
+		</ApolloProvider>
+	</MediaContextProvider>
+);
+
 class MyApp extends App {
 	render() {
 		const { Component, pageProps, apollo } = this.props;
 
-		const Layout = Component.Layout || Fragment;
-		return (
-			<DeviceProvider>
-				<GlobalStyles />
-				<MediaContextProvider>
-					<ApolloProvider client={apollo}>
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
-					</ApolloProvider>
-				</MediaContextProvider>
-			</DeviceProvider>
-		);
+		const width = process.browser ? window.innerWidth : undefined;
+		const height = process.browser ? window.innerHeight : undefined;
+		const getLayout = Component.getLayout || (page => page);
+		return [
+			<GlobalStyles key="styles" width={width} height={height} />,
+			<ContextProviders key="contexts" apollo={apollo}>
+				{getLayout(
+						<Component {...pageProps} />
+				)}
+			</ContextProviders>,
+		];
 	}
 }
 

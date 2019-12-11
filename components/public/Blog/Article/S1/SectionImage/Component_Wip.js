@@ -86,6 +86,50 @@ const SectionImage = ({
   if (horizontalDelta > height) sectionDelta = height;
   else if (horizontalDelta < -height) sectionDelta = -height;
   else sectionDelta = horizontalDelta;
+  // const [sectionDelta, setSectionDelta] = useState(0);
+  // useEffect(() => {
+  //   if (horizontalDelta > height) setSectionDelta(height);
+  //   else if (horizontalDelta < -height) setSectionDelta(-height);
+  //   else setSectionDelta(horizontalDelta);
+  // });
+  
+  const [content, setContent] = useState([]);
+  useEffect(() => {
+    const out = [];
+    
+    sections.map((section, id) => {
+      let position = 0;
+      if (id) { // NOT first section
+        if (currentSection === id) {
+          let sectionHeight = sectionDelta > 0 ? sectionDelta : height + sectionDelta;
+          position = sectionHeight < 0 ? 0 : sectionHeight;
+        } else if (id > currentSection) {
+          position = height;
+        }
+      }
+      const isActive = active === id;
+    
+      out.push(
+        <Content
+          key={id}
+          position={position}
+          height={height}
+        >
+          <Image
+            url={section.url}
+            variants={ImageVariants}
+            initial="closed"
+            animate={isActive ? 'open' : 'closed'}
+          />
+          <Title>
+            {section.title}
+          </Title>
+        </Content>
+      );
+    });
+    setContent(out);
+  }, [sectionDelta, height]);
+  
 
   return useMemo(() => (
     <Container>
@@ -114,43 +158,13 @@ const SectionImage = ({
         onClick={handleActive((sectionDelta !== 0 && sectionDelta > (-height)) ? currentSection - 1 : currentSection)}
         ariaLabel="menu"
       />
-      {sections.map((section, id) => {
-        let position = 0;
-        if (id) { // NOT first section
-          if (currentSection === id) {
-            let sectionHeight = sectionDelta > 0 ? sectionDelta : height + sectionDelta;
-            position = sectionHeight < 0 ? 0 : sectionHeight;
-          } else if (id > currentSection) {
-            position = height;
-          }
-        }
-        const isActive = active === id;
-
-        console.log(position, id, height);
-        return (
-          <Content
-            key={id}
-            position={position}
-            height={height}
-          >
-            <Image
-              url={section.url}
-              variants={ImageVariants}
-              initial="closed"
-              animate={isActive ? 'open' : 'closed'}
-            />
-            <Title>
-              {section.title}
-            </Title>
-          </Content>
-        )
-      })}
+      {content}
     </Container>
-  ), [sectionDelta, active, height]);
+  ), [sectionDelta, active]);
 };
 SectionImage.propTypes = propTypes;
 SectionImage.defaultProps = defaultProps;
 SectionImage.whyDidYouRender = true;
 
-export default SectionImage;
+export default memo(SectionImage);
 

@@ -42,6 +42,8 @@ export default createGlobalStyle`
     font-display: swap;
 	}
   body {
+  	--fullHeight: ${({ height }) => height}px;
+  	--fullWidth: ${({ width }) => width}px;
  		--color-primary: ${primary};
     position: absolute;
     top: 0;

@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useRef, useState, useEffect, memo } from 'react';
 import { Waypoint } from 'react-waypoint';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
@@ -20,11 +20,12 @@ const defaultScrollInfos = {
   currentSection: 0,
 };
 
-const S2 = ({
-  height,
-  sections,
-}) => {
-  const imageHeight = Math.round(height / 3); // 33% of the page
+const S2 = ({ sections }) => {
+  const getHeight = () => process.browser ? window.innerHeight : undefined;
+  const [imageHeight, setImageHeight] = useState(0);
+  useEffect(() => {
+    setImageHeight(Math.round(getHeight() / 3));
+  }, []);
 
   const [waypointStates, setWaypointStates] = useState([[], [], []]);
   const [scrollInfos, setScrollInfos] = useState(defaultScrollInfos);
@@ -100,7 +101,6 @@ const S2 = ({
       />
       <Sections
         id="sections"
-        marginTop={imageHeight}
         ref={scrollRef}
       >
         {sections.map((section, i) => (
@@ -129,5 +129,5 @@ S2.propTypes = propTypes;
 S2.defaultProps = defaultProps;
 S2.whyDidYouRender = true;
 
-export default S2;
+export default memo(S2);
 

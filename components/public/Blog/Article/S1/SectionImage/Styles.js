@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-export const Container = styled(({ height, ...props }) => <div {...props} />)`
+export const Container = styled.div`
   position: absolute;
-  height: ${({height}) => height}px;
+  height: calc(var(--fullHeight) / 3);
   width: 100%;
 `;
 export const Content = styled.div.attrs(({ position, height }) => ({
@@ -25,8 +25,6 @@ export const Image = styled(({ url, ...props }) => <motion.div {...props} />)`
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	width: 100%;
-	height: 100%;
 	position: relative;
 	transform-origin: left bottom;
   &:after {
@@ -58,9 +56,3 @@ export const ResizeBtn = styled(motion.div)`
 	  background: radial-gradient(circle,rgba(0,0,0,0.5) -200%,rgba(0,0,0,0) 60%);
 	}
 `;
-
-/*
-Layout https://events.google.com/flutter-interact/
-
-et aussi pour flutter
-*/

@@ -6,11 +6,6 @@ import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import { mediaStyle } from 'Styles/common/Media';
 
-if (process.env.NODE_ENV !== 'production') {
-	const whyDidYouRender = require('@welldone-software/why-did-you-render/dist/no-classes-transpile/umd/whyDidYouRender.min.js');
-	whyDidYouRender(React);
-}
-
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx) {
 		const sheet = new ServerStyleSheet();
