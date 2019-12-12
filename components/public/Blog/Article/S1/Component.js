@@ -20,7 +20,7 @@ const defaultScrollInfos = {
   currentSection: 0,
 };
 
-const S2 = ({ sections }) => {
+const S1 = ({ sections }) => {
   const getHeight = () => process.browser ? window.innerHeight : undefined;
   const [imageHeight, setImageHeight] = useState(0);
   useEffect(() => {
@@ -125,9 +125,9 @@ const S2 = ({ sections }) => {
     </Container>
   );
 };
-S2.propTypes = propTypes;
-S2.defaultProps = defaultProps;
-S2.whyDidYouRender = true;
+S1.propTypes = propTypes;
+S1.defaultProps = defaultProps;
+S1.whyDidYouRender = true;
 
-export default memo(S2);
+export default memo(S1);
 

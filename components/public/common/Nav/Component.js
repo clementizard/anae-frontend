@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import Scrollchor from 'react-scrollchor';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+// import { useQuery } from '@apollo/react-hooks';
 
+import useAnimate from 'Hooks/animate';
 import {
 	LettersAnimated,
 	Wrapper,
@@ -18,21 +20,11 @@ import {
 	LinkButton,
 } from './Styles';
 import { propTypes, defaultProps } from './Props';
-
-const letterVariants = {
-	hidden: { opacity: 0 },
-	visible: { opacity: 1 },
-};
-const linkVariants = {
-	hidden: {
-		opacity: 0,
-		y: -20,
-	},
-	visible: {
-		opacity: 1,
-		y: 0,
-	},
-};
+import {
+	letterVariants,
+	linkVariants,
+} from './Animations';
+import { buildNavItems } from './Tools';
 
 const GET_ARTICLE = gql`
     {
@@ -45,79 +37,37 @@ const GET_ARTICLE = gql`
 `;
 
 const Nav = () => {
-	const { loading, error, data } = useQuery(GET_ARTICLE);
+	// const { loading, error, data } = useQuery(GET_ARTICLE);
+	// console.log('GQL: ', loading, error, data);
 	
-	console.log('GQL: ', loading, error, data);
+	const NavItems = useCallback(buildNavItems({
+		article: {
+			sections: [
+				{
+					title: 'Title1',
+				},
+				{
+					title: 'Title2',
+				},
+				{
+					title: 'Title3',
+				},
+			],
+		},
+	}), []);
 
-	const [animate, setAnimate] = useState('hidden');
-	useEffect(() => setAnimate('visible'), []);
+	const shouldAnimate = useAnimate();
+	const animate = shouldAnimate ? 'visible' : 'hidden';
 
 	const router = useRouter();
 	const { id } = router.query;
-	const MenuItems = [
-		{
-			name: 'Article',
-			sub: [
-				{
-					name: 'Le cristal de roche',
-					link: '#section0',
-				},
-				{
-					name: 'Le cristal de roche 1',
-					link: '#section1',
-				},
-				{
-					name: 'Le cristal de roche 2',
-					link: '#section2',
-				},
-			],
-		},
-		{
-			name: 'Blog',
-			link: '/blog',
-		},
-		{
-			name: 'Produits',
-			sub: [
-				{
-					name: 'Tous les produits',
-					link: '/products',
-				},
-				{
-					name: 'Nouveautes',
-					link: '/products/news',
-				},
-				{
-					name: 'Collections',
-					link: '/products/collections',
-				},
-				{
-					name: 'Bracelets',
-					link: '/products/bracelets',
-				},
-				{
-					name: "Boucles d'oreilles",
-					link: '/products/earrings',
-				},
-				{
-					name: 'Pour enfants',
-					link: '/products/kids',
-				},
-				{
-					name: 'Autres',
-					link: '/products/others',
-				},
-			],
-		},
-	];
-	// if (router.pathname.includes('article')) {
-	// 	console.log('Im in article');
-	// }
 	
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const handleMenuClick = index => (e) => {
-		if (!MenuItems[index].sub || !MenuItems[index].sub.length) router.push(MenuItems[index].link);
+		if (NavItems[index]
+			&& (!NavItems[index].sub
+			|| !NavItems[index].sub.length)) router.push(NavItems[index].link);
 		else {
 			if (index === false) {
 				setMenuOpen(false);
@@ -150,7 +100,7 @@ const Nav = () => {
 				</Wrapper>
 			</LogoContainer>
 			<Links>
-				{MenuItems.map((item, index) => (
+				{NavItems.map((item, index) => (
 					<ItemContainer
 						initial="hidden"
 						key={`link-animated-${index}`}
@@ -169,7 +119,7 @@ const Nav = () => {
 					</ItemContainer>
 				))}
 			</Links>
-			{(MenuItems[menuOpen] && MenuItems[menuOpen].sub) && (
+			{(NavItems[menuOpen] && NavItems[menuOpen].sub) && (
 				<Menu
 					anchorEl={anchorEl}
 					anchorOrigin={{
@@ -187,7 +137,16 @@ const Nav = () => {
 					open={menuOpen !== false}
 					onClose={handleMenuClick(false)}
 				>
-					{MenuItems[menuOpen].sub.map((subItem, subIndex) => (
+					{NavItems[menuOpen].sub.map((subItem, subIndex) => NavItems[menuOpen].type === 'article' ? (
+							<Scrollchor
+								key={`link-sub-${menuOpen}-${subIndex}`}
+								to={`#section${subIndex}`}
+								target="page"
+								style={{ color: 'inherit', textDecoration: 'none' }}
+							>
+								{subItem.name}
+							</Scrollchor>
+					) : (
 						<MenuItem
 							key={`link-sub-${menuOpen}-${subIndex}`}
 							onClick={handleSubMenuClick(subItem.link)}

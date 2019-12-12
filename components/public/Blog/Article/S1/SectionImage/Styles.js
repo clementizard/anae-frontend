@@ -56,3 +56,9 @@ export const ResizeBtn = styled(motion.div)`
 	  background: radial-gradient(circle,rgba(0,0,0,0.5) -200%,rgba(0,0,0,0) 60%);
 	}
 `;
+export const iconContainerStyles = {
+	position: 'fixed',
+	right: 12,
+	top: 72,
+	zIndex: 2,
+};

@@ -13,14 +13,14 @@ const Article = () => {
 	const height = process.browser ? window.innerHeight : undefined;
 
 	return (
-		<>
+		<div id="page">
 			<Media at="s1">
 				<S1Component height={height} sections={sections} />
 			</Media>
 			<Media at="s2">
 				<S2Component height={height} sections={sections} />
 			</Media>
-		</>
+		</div>
 	);
 };
 Article.getLayout = getLayout;

@@ -1,48 +1,27 @@
-/**
- * Le but de la sectionImage est de delimiter et modifier la page des articles.
- * L'animation principale sert de transition entre les sections.
- * La seconde est de maximiser la photo sur l'ecran.
- */
-import React, { useState, useMemo, useEffect, memo } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  memo,
+} from 'react';
 import { useScroll } from 'react-use';
-import PhotoSizeSelectLarge from '@material-ui/icons/PhotoSizeSelectLarge';
-import PhotoSizeSelectSmall from '@material-ui/icons/PhotoSizeSelectSmall';
 
 import IconButton from 'Components/common/IconButton';
 import {
   Container,
   Content,
-  ResizeBtn,
   Image,
   Title,
+  iconContainerStyles,
 } from './Styles';
 import {
   propTypes,
   defaultProps,
 } from './Props';
-
-const ResizeBtnVariants = {
-  closed: { rotate: 0 },
-  open: { rotate: 90 },
-};
-const ImageVariants = {
-  closed: {
-    width: 'var(--fullWidth)',
-    height: 'calc(var(--fullHeight) / 3)',
-    translateY: '0vw',
-    rotate: 0,
-    zIndex: 'initial',
-    top: 0,
-    left: 0,
-  },
-  open: {
-    width: 'var(--fullHeight)',
-    height: 'var(--fullWidth)',
-    translateY: '-100vw',
-    rotate: 90,
-    zIndex: '1',
-  },
-};
+import {
+  ImageVariants,
+  iconAnimProps,
+} from './Animations';
 
 const SectionImage = ({
   height,
@@ -80,77 +59,62 @@ const SectionImage = ({
   //   setY(scrollY);
   // }, null, scrollRef);
   // Maybe use a variable that changes when recordScroll = true && y !== prevVariable
-
+  
   const horizontalDelta = horizontalBase - y;
   let sectionDelta = 0;
   if (horizontalDelta > height) sectionDelta = height;
   else if (horizontalDelta < -height) sectionDelta = -height;
   else sectionDelta = horizontalDelta;
-
+  
+  const getContent = () => {
+    return sections.map((section, id) => {
+      let position = 0;
+      if (id) { // NOT first section
+        if (currentSection === id) {
+          let sectionHeight = sectionDelta > 0 ? sectionDelta : height + sectionDelta;
+          position = sectionHeight < 0 ? 0 : sectionHeight;
+        } else if (id > currentSection) {
+          position = height;
+        }
+      }
+      const isActive = active === id;
+    
+      return (
+        <Content
+          key={id}
+          position={position}
+          height={height}
+        >
+          <Image
+            url={section.url}
+            variants={ImageVariants}
+            initial="closed"
+            animate={isActive ? 'open' : 'closed'}
+          />
+          <Title>
+            {section.title}
+          </Title>
+        </Content>
+      )
+    });
+  };
+  
   return useMemo(() => (
     <Container>
       <IconButton
-        containerStyles={{
-          position: 'fixed',
-          right: 12,
-          top: 72,
-          zIndex: 2,
-        }}
-        animProps={{
-          icons: {
-            active: PhotoSizeSelectSmall,
-            inactive: PhotoSizeSelectLarge,
-          },
-          labels: {
-            active: 'open',
-            inactive: 'closed',
-          },
-          others: {
-            variants: ResizeBtnVariants,
-            initial: 'closed',
-          },
-        }}
+        containerStyles={iconContainerStyles}
+        animProps={iconAnimProps}
         activable
         onClick={handleActive((sectionDelta !== 0 && sectionDelta > (-height)) ? currentSection - 1 : currentSection)}
         ariaLabel="menu"
       />
-      {sections.map((section, id) => {
-        let position = 0;
-        if (id) { // NOT first section
-          if (currentSection === id) {
-            let sectionHeight = sectionDelta > 0 ? sectionDelta : height + sectionDelta;
-            position = sectionHeight < 0 ? 0 : sectionHeight;
-          } else if (id > currentSection) {
-            position = height;
-          }
-        }
-        const isActive = active === id;
-
-        console.log(position, id, height);
-        return (
-          <Content
-            key={id}
-            position={position}
-            height={height}
-          >
-            <Image
-              url={section.url}
-              variants={ImageVariants}
-              initial="closed"
-              animate={isActive ? 'open' : 'closed'}
-            />
-            <Title>
-              {section.title}
-            </Title>
-          </Content>
-        )
-      })}
+      {getContent()}
     </Container>
   ), [sectionDelta, active, height]);
 };
 SectionImage.propTypes = propTypes;
 SectionImage.defaultProps = defaultProps;
-SectionImage.whyDidYouRender = true;
+// SectionImage.whyDidYouRender = true;
 
-export default SectionImage;
+export default memo(SectionImage);
 

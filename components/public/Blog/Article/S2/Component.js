@@ -30,7 +30,7 @@ const S2 = ({
   };
 
   return (
-    <>
+    <div id="sections">
       {sections.map((section, i) => (
         <div
           id={`section${i}`}
@@ -56,7 +56,7 @@ const S2 = ({
           </SectionText>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 S2.propTypes = propTypes;

@@ -16,7 +16,7 @@ export const LogoContainer = styled.div`
   height: 72px;
   width: 200px;
   > svg {
-    transform: translate(0, -33px);
+    transform: translate(0, -35px);
     > path {
       fill: black !important;
     }
