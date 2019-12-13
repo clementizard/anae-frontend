@@ -30,8 +30,21 @@ export const Links = styled.div`
   justify-content: flex-start;
 	padding-right: 24px;
 `;
-export const ItemContainer = styled(motion.div)`
+export const ItemContainer = styled(forwardRef(({ selected, ...props }, innerRef) => <motion.div {...props} ref={innerRef} />))`
+	position: relative;
   margin: 0 16px;
+  color: rgba(0, 0, 0, 0.65);
+  ${({ selected }) => selected && `
+    color: #000;
+    &::before {
+      content: ' ';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -8px;
+      background-color: #000;
+    }
+  `}
 `;
 export const LinkButton = styled.div`
 `;

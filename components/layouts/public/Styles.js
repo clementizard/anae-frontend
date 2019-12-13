@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
 export const Inner = styled.div`
-	position: absolute;
-	top: 72px;
-	left: 0;
+	margin-top: 72px;
 `;

@@ -4,9 +4,10 @@ import Scrollchor from 'react-scrollchor';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
-import gql from 'graphql-tag';
-// import { useQuery } from '@apollo/react-hooks';
 
+import {
+	getArticleByTitleId,
+} from 'Services/Articles';
 import useAnimate from 'Hooks/animate';
 import {
 	LettersAnimated,
@@ -26,48 +27,26 @@ import {
 } from './Animations';
 import { buildNavItems } from './Tools';
 
-const GET_ARTICLE = gql`
-    {
-        getArticle(id: "5d949e13c31d83415c1bd39b") {
-            title
-            description
-            created
-        }
-    }
-`;
-
 const Nav = () => {
-	// const { loading, error, data } = useQuery(GET_ARTICLE);
-	// console.log('GQL: ', loading, error, data);
-	
-	const NavItems = useCallback(buildNavItems({
-		article: {
-			sections: [
-				{
-					title: 'Title1',
-				},
-				{
-					title: 'Title2',
-				},
-				{
-					title: 'Title3',
-				},
-			],
-		},
-	}), []);
+	const router = useRouter();
+	const { id } = router.query;
+	const {
+		loading,
+		error,
+		data,
+	} = getArticleByTitleId(id);
+
+	const NavItems = useCallback(buildNavItems({ article: data }), []);
 
 	const shouldAnimate = useAnimate();
 	const animate = shouldAnimate ? 'visible' : 'hidden';
-
-	const router = useRouter();
-	const { id } = router.query;
 	
+	// Menu - MenuItems
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const handleMenuClick = index => (e) => {
 		if (NavItems[index]
-			&& (!NavItems[index].sub
-			|| !NavItems[index].sub.length)) router.push(NavItems[index].link);
+			&& (!NavItems[index].sub || !NavItems[index].sub.length)) router.push(NavItems[index].link);
 		else {
 			if (index === false) {
 				setMenuOpen(false);
@@ -80,10 +59,19 @@ const Nav = () => {
 	};
 	const handleSubMenuClick = link => () => {
 		setMenuOpen(false);
-		router.push(link);
+		// router.push(link);
+	};
+	const isItemSelected = item => {
+		if (id && item.type === 'article') return true;
+		if (!id && item.link && router.pathname.includes(item.link)) return true;
+		else if (item.sub && item.sub.length) {
+			item.sub.forEach((subItem) => {
+				if (router.pathname.includes(subItem.link)) return true;
+			});
+		}
+		return false;
 	};
 
-	console.log(anchorEl);
 	return (
 		<Container>
 			<LogoContainer>
@@ -107,11 +95,11 @@ const Nav = () => {
 						variants={linkVariants}
 						animate={animate}
 						transition={{ delay: 0.2 * index }}
+						selected={isItemSelected(item)}
 					>
 						<LinkButton
 							onClick={handleMenuClick(index)}
-							// ref={anchorRefArray[index]}
-							aria-controls={menuOpen === index ? 'menu-list-grow' : undefined}
+							aria-controls={menuOpen === index ? 'menu-list-fade' : undefined}
 							aria-haspopup={(item.sub && item.sub.length) ? 'true' : 'false'}
 						>
 							{item.name}
@@ -141,15 +129,19 @@ const Nav = () => {
 							<Scrollchor
 								key={`link-sub-${menuOpen}-${subIndex}`}
 								to={`#section${subIndex}`}
-								target="page"
+								target="section"
 								style={{ color: 'inherit', textDecoration: 'none' }}
+								animate={{ offset: -72 }}
 							>
-								{subItem.name}
+								<MenuItem>
+									{subItem.name}
+								</MenuItem>
 							</Scrollchor>
 					) : (
 						<MenuItem
 							key={`link-sub-${menuOpen}-${subIndex}`}
 							onClick={handleSubMenuClick(subItem.link)}
+							selected={subItem.link === router.pathname}
 						>
 							{subItem.name}
 						</MenuItem>

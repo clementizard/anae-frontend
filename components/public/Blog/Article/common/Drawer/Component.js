@@ -96,7 +96,7 @@ const Drawer = ({
 						</ListItem>
 						<Collapse in={openArticle} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
-								{sections.map(({ title }, id) => (
+								{sections && sections.map(({ title }, id) => (
 									<Scrollchor
 										key={id}
 										to={`#section${id}`}

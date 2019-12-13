@@ -10,7 +10,7 @@ const Products = {
 			link: '/products',
 		},
 		{
-			name: 'Nouveautes',
+			name: 'Nouveautés',
 			link: '/products/news',
 		},
 		{
@@ -67,9 +67,9 @@ export const buildNavItems = ({
 *Déesse Cosmique
 Nous, les Déesses
 Quelle taille de bague choisir ?
-	Purifier & Recharger
-	FAQ
-	
+Purifier & Recharger
+FAQ
+
 *Mentions légales
 Conditions générales de vente
 Politique de confidentialité
@@ -78,7 +78,6 @@ Retours
 
 *Propriétés de nos pierres
 Pouvoirs
-Zodiaque
 Grimoire Cosmique
 *Restez en contact
 Facebook Instagram

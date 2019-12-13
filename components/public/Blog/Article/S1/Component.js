@@ -20,7 +20,12 @@ const defaultScrollInfos = {
   currentSection: 0,
 };
 
-const S1 = ({ sections }) => {
+const S1 = ({
+  article,
+  loading,
+}) => {
+  const articleReady = Boolean(!loading && article && article.sections);
+  
   const getHeight = () => process.browser ? window.innerHeight : undefined;
   const [imageHeight, setImageHeight] = useState(0);
   useEffect(() => {
@@ -89,12 +94,12 @@ const S1 = ({ sections }) => {
         </a>
       </ReturnBtn>
       <Drawer
-        sections={sections}
+        sections={articleReady && article.sections}
         selectedSection={currentSection}
       />
       <SectionImage
         height={imageHeight}
-        sections={sections}
+        sections={articleReady && article.sections}
         currentSection={currentSection}
         scrollRef={scrollRef}
         recordScroll={recordScroll}
@@ -103,7 +108,7 @@ const S1 = ({ sections }) => {
         id="sections"
         ref={scrollRef}
       >
-        {sections.map((section, i) => (
+        {articleReady && article.sections.map((section, i) => (
           <Fragment key={section.title}>
             {Boolean(i) && <SectionTitle>{section.title}</SectionTitle>}
             <Waypoint

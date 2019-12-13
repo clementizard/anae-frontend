@@ -1,13 +1,9 @@
-import { updateWeather } from './functions';
 import {
-	WeatherProvider,
-	useWeatherDispatch,
-	useWeatherState,
+	DeviceProvider,
+	useDevice,
 } from './context';
 
 export {
-	WeatherProvider,
-	useWeatherState,
-	useWeatherDispatch,
-	updateWeather,
+	DeviceProvider,
+	useDevice,
 };

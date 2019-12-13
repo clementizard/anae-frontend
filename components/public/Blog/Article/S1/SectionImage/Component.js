@@ -67,36 +67,37 @@ const SectionImage = ({
   else sectionDelta = horizontalDelta;
   
   const getContent = () => {
-    return sections.map((section, id) => {
-      let position = 0;
-      if (id) { // NOT first section
-        if (currentSection === id) {
-          let sectionHeight = sectionDelta > 0 ? sectionDelta : height + sectionDelta;
-          position = sectionHeight < 0 ? 0 : sectionHeight;
-        } else if (id > currentSection) {
-          position = height;
+    if (sections)
+      return sections.map((section, id) => {
+        let position = 0;
+        if (id) { // NOT first section
+          if (currentSection === id) {
+            let sectionHeight = sectionDelta > 0 ? sectionDelta : height + sectionDelta;
+            position = sectionHeight < 0 ? 0 : sectionHeight;
+          } else if (id > currentSection) {
+            position = height;
+          }
         }
-      }
-      const isActive = active === id;
-    
-      return (
-        <Content
-          key={id}
-          position={position}
-          height={height}
-        >
-          <Image
-            url={section.url}
-            variants={ImageVariants}
-            initial="closed"
-            animate={isActive ? 'open' : 'closed'}
-          />
-          <Title>
-            {section.title}
-          </Title>
-        </Content>
-      )
-    });
+        const isActive = active === id;
+      
+        return (
+          <Content
+            key={id}
+            position={position}
+            height={height}
+          >
+            <Image
+              url={section.url}
+              variants={ImageVariants}
+              initial="closed"
+              animate={isActive ? 'open' : 'closed'}
+            />
+            <Title>
+              {section.title}
+            </Title>
+          </Content>
+        )
+      });
   };
   
   return useMemo(() => (

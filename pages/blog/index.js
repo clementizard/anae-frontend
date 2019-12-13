@@ -1,3 +1,13 @@
-import Component from './Component';
+import React from 'react';
 
-export default Component;
+import {} from './Styles';
+import { propTypes, defaultProps } from './Props';
+
+const Landing = () => {
+	return (<>BLOG LANDING</>);
+};
+Landing.propTypes = propTypes;
+Landing.defaultProps = defaultProps;
+Landing.whyDidYouRender = true;
+
+export default Landing;

@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Waypoint } from 'react-waypoint';
 import Img from 'react-image';
 import ReactMarkdown from 'react-markdown';
@@ -10,20 +10,22 @@ import {
 import { propTypes, defaultProps } from './Props';
 
 const S2 = ({
-  sections,
+  article,
   height,
+  loading,
 }) => {
+  const articleReady = Boolean(!loading && article && article.sections);
   const third = Math.round(height / 3); // 33% of the page
   const imageHeight = third >= 350 ? 350 : third;
 
   const [currentSection, setCurrentSection] = useState(0);
 
-  const handleWaypointEnter = (sectionId) => () => {
+  const handleWaypointEnter = sectionId => () => {
     if (currentSection > sectionId) {
       setCurrentSection(sectionId);
     }
   };
-  const handleWaypointLeave = (sectionId) => () => {
+  const handleWaypointLeave = sectionId => () => {
     if (currentSection < sectionId) {
       setCurrentSection(sectionId);
     }
@@ -31,10 +33,10 @@ const S2 = ({
 
   return (
     <div id="sections">
-      {sections.map((section, i) => (
+      {articleReady && article.sections.map((section, i) => (
         <div
           id={`section${i}`}
-          key={section.title}
+          key={section.id}
         >
           <Waypoint
             onEnter={handleWaypointEnter(i)}
@@ -42,8 +44,8 @@ const S2 = ({
           />
           <Img
             alt={section.alt}
-            src={section.url}
-            container={(children) => (
+            src={section.image}
+            container={children => (
               <SectionImage
                 image={children}
                 title={section.title}
@@ -63,6 +65,8 @@ S2.propTypes = propTypes;
 S2.defaultProps = defaultProps;
 S2.whyDidYouRender = true;
 
+export default S2;
+
 /*
 Todo:
   - Faire le menu S2+
@@ -81,6 +85,3 @@ Todo:
   - Admin Logs
   - Admin Produits
  */
-
-export default S2;
-

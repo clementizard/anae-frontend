@@ -3,6 +3,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import { Media } from 'Styles/common/Media';
 import Nav from 'PublicComponents/common/Nav';
+import Footer from 'PublicComponents/common/Footer';
 import IconButton from 'CommonComponents/IconButton';
 import { Inner } from './Styles';
 import { propTypes, defaultProps } from './Props';
@@ -21,12 +22,14 @@ const Public = ({ children }) => (
 				}}
 			/>
 			{children}
+			<Footer />
 		</Media>
-		<Media at="s2">
+		<Media greaterThanOrEqual="s2">
 			<Nav />
 			<Inner>
 				{children}
 			</Inner>
+			<Footer />
 		</Media>
 	</>
 );
