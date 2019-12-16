@@ -18,7 +18,7 @@ const Article = () => {
 		error,
 		data,
 	} = getArticleByTitleId(id);
-	
+
 	return (
 		<>
 			<Media at="s1">

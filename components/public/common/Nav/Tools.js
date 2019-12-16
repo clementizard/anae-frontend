@@ -11,7 +11,7 @@ const Products = {
 		},
 		{
 			name: 'Nouveautés',
-			link: '/products/news',
+			link: '/products/new',
 		},
 		{
 			name: 'Collections',
@@ -22,7 +22,7 @@ const Products = {
 			link: '/products/bracelets',
 		},
 		{
-			name: "Boucles d'oreilles",
+			name: 'Boucles d\'oreilles',
 			link: '/products/earrings',
 		},
 		{
@@ -57,35 +57,3 @@ export const buildNavItems = ({
 	out.push(Products);
 	return out;
 };
-// Produits
-// Blog
-// Article
-// ...
-
-// FOOTER:
-/*
-*Déesse Cosmique
-Nous, les Déesses
-Quelle taille de bague choisir ?
-Purifier & Recharger
-FAQ
-
-*Mentions légales
-Conditions générales de vente
-Politique de confidentialité
-Livraison
-Retours
-
-*Propriétés de nos pierres
-Pouvoirs
-Grimoire Cosmique
-*Restez en contact
-Facebook Instagram
-*Besoin d'un conseil de Déesse ?
-Appelez-nous au  05 31 61 98 00
-
-Ou envoyez-nous un email à
-contact@deesse-cosmique.com
-
-
- */

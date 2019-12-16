@@ -15,7 +15,7 @@ export const Links = [
 				link: '/others/delivery',
 			},
 			{
-				name: 'Conditions générales de vente',
+				name: 'Retours',
 				link: '/others/returns',
 			},
 		],
@@ -24,16 +24,24 @@ export const Links = [
 		title: 'À propos',
 		list: [
 			{
-				name: 'La petite histoire',
-				link: '/about/story',
-			},
-			{
 				name: 'Guide des tailles',
 				link: '/others/sizes',
 			},
 			{
 				name: 'FAQ',
 				link: '/others/faq',
+			},
+			{
+				name: 'Plan du site',
+				link: '/others/sitemap',
+			},
+			{
+				name: 'La petite histoire',
+				link: '/about/story',
+			},
+			{
+				name: 'Mises à jour',
+				link: '/about/changelog',
 			},
 		],
 	},
@@ -70,38 +78,28 @@ export const Links = [
 		title: 'Contact',
 		list: [
 			{
-				name: 'Nous contacter',
-				link: '/about/contact',
-			},
-			{
 				name: 'Facebook',
 				link: 'https://www.facebook.com/anae.me.boutique/',
+				type: 'social',
 			},
 			{
 				name: 'Instagram',
 				link: 'https://www.instagram.com/anae.me/',
+				type: 'social',
 			},
 			{
 				name: 'Etsy',
 				link: 'https://www.etsy.com/fr/shop/AnaeBoutique',
+				type: 'social',
+			},
+			{
+				name: 'Nous contacter',
+				link: '/about/contact',
 			},
 			{
 				name: 'Nous rejoindre',
 				link: '/about/jobs',
 			},
 		],
-	},
-	{
-		title: 'Anae',
-		list: [
-			{
-				name: 'Plan du site',
-				link: '/others/sitemap',
-			},
-			{
-				name: 'Mises à jour',
-				link: '/about/changelog',
-			},
-		],
-	},
+	}
 ];

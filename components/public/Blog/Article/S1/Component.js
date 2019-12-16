@@ -1,9 +1,9 @@
 import React, { Fragment, useRef, useState, useEffect, memo } from 'react';
 import { Waypoint } from 'react-waypoint';
-import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import ReactMarkdown from 'react-markdown';
 
+import IconButton from 'CommonComponents/IconButton';
 import Drawer from '../common/Drawer';
 import SectionImage from './SectionImage';
 import {
@@ -11,13 +11,17 @@ import {
   SectionTitle,
   SectionText,
   Sections,
-  ReturnBtn,
 } from './Styles';
 import { propTypes, defaultProps } from './Props';
 
 const defaultScrollInfos = {
   recordScroll: false,
   currentSection: 0,
+};
+const IconContainerStyles = {
+  position: 'fixed',
+  top: 12,
+  left: 12,
 };
 
 const S1 = ({
@@ -86,13 +90,12 @@ const S1 = ({
 
   return (
     <Container>
-      <ReturnBtn>
-        <a href="/blog/">
-          <IconButton aria-label="menu">
-            <ArrowBack />
-          </IconButton>
-        </a>
-      </ReturnBtn>
+      <IconButton
+        href="/blog"
+        ariaLabel="back"
+        Icon={ArrowBack}
+        containerStyles={IconContainerStyles}
+      />
       <Drawer
         sections={articleReady && article.sections}
         selectedSection={currentSection}

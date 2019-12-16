@@ -69,16 +69,9 @@ export default S2;
 
 /*
 Todo:
-  - Faire le menu S2+
-  - Faire la version S3+ (Split screen)
-  - Page de blog S1
-  - Page de blog S2+
   - Async load
   - Logs https://www.npmjs.com/package/address
   - Produits / Commandes / User DB
-  - Page Produits (Aka Home) S1+
-  - Page Produit S1, S2+
-  - Page Perso S1, S2+
   - Mails https://stackabuse.com/how-to-send-emails-with-node-js/
   - Admin
   - Admin Insta

@@ -87,7 +87,7 @@ const SectionImage = ({
             height={height}
           >
             <Image
-              url={section.url}
+              url={section.image}
               variants={ImageVariants}
               initial="closed"
               animate={isActive ? 'open' : 'closed'}

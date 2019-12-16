@@ -27,6 +27,7 @@ const nextConfig = {
 		config.resolve.alias['Services'] = path.join(__dirname, 'services');
 		config.resolve.alias['Public'] = path.join(__dirname, 'public');
 		config.resolve.alias['Styles'] = path.join(__dirname, 'styles');
+		config.resolve.alias['Sizes'] = path.join(__dirname, 'styles/common/Sizes');
 		config.resolve.alias['Tools'] = path.join(__dirname, 'tools');
 		config.resolve.alias['Hooks'] = path.join(__dirname, 'tools/hooks');
 

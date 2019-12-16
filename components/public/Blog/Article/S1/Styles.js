@@ -27,16 +27,3 @@ export const SectionText = styled.div`
   padding: 20px 0;
 	color: rgba(0, 0, 0, 0.65);
 `;
-export const ReturnBtn = styled.div`
-	position: fixed;
-	top: 12px;
-	left: 12px;
-	width: 48px;
-	height: 48px;
-	cursor: pointer;
-	z-index: 1;
-	> a >button {
-	  color: rgba(255, 255, 255, 0.6);
-	  background: radial-gradient(circle,rgba(0,0,0,0.5) -200%,rgba(0,0,0,0) 60%);
-	}
-`;

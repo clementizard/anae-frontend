@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Media } from 'Styles/common/Media';
+import S1Component from './S1';
 import S2Component from './S2';
-import S3Component from './S3';
 import {
   Container,
   BottomText,
@@ -12,8 +12,8 @@ import { propTypes, defaultProps } from './Props';
 const Footer = () => {
   return (
     <Container>
-      <Media lessThan="s3"><S2Component /></Media>
-      <Media greaterThanOrEqual="s3"><S3Component /></Media>
+      <Media at="s1"><S1Component /></Media>
+      <Media greaterThanOrEqual="s2"><S2Component /></Media>
       <BottomText>
         © 2019 Anae
       </BottomText>
