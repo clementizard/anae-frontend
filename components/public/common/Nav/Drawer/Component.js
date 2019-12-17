@@ -14,6 +14,7 @@ import Book from '@material-ui/icons/Book';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+import { buildDrawerItems } from '../Tools';
 import Header from './Header';
 import Footer from './Footer';
 import {
@@ -44,6 +45,7 @@ const Drawer = ({
 	selectedSection,
 }) => {
 	const router = useRouter();
+	const DrawerItems = buildDrawerItems({ sections });
 
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(!open);
@@ -87,13 +89,15 @@ const Drawer = ({
 						aria-labelledby="menu-list"
 						style={{ padding: 0, maxHeight: 'calc(100vh - 72px - 56px)', overflow: 'auto' }}
 					>
-						<ListItem button onClick={handleOpenArticle}>
-							<ListItemIcon>
-								<Book />
-							</ListItemIcon>
-							<ListItemText primary="Article" />
-							{openArticle ? <ExpandLess /> : <ExpandMore />}
-						</ListItem>
+						{sections &&
+							<ListItem button onClick={handleOpenArticle}>
+								<ListItemIcon>
+									<Book />
+								</ListItemIcon>
+								<ListItemText primary="Article" />
+								{openArticle ? <ExpandLess /> : <ExpandMore />}
+							</ListItem>
+						}
 						<Collapse in={openArticle} timeout="auto" unmountOnExit>
 							<List component="div" disablePadding>
 								{sections && sections.map(({ title }, id) => (

@@ -1,13 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { useRouter } from 'next/router';
 import Scrollchor from 'react-scrollchor';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 
-import {
-	getArticleByTitleId,
-} from 'Services/Articles';
 import useAnimate from 'Hooks/animate';
 import {
 	LettersAnimated,
@@ -27,16 +24,12 @@ import {
 } from './Animations';
 import { buildNavItems } from './Tools';
 
-const AppBar = () => {
+const AppBar = ({
+  article
+}) => {
 	const router = useRouter();
 	const { id } = router.query;
-	const {
-		loading,
-		error,
-		data,
-	} = getArticleByTitleId(id);
-
-	const NavItems = useCallback(buildNavItems({ article: data }), []);
+	const NavItems = useCallback(buildNavItems({ article }), []);
 
 	const shouldAnimate = useAnimate();
 	const animate = shouldAnimate ? 'visible' : 'hidden';
@@ -155,4 +148,4 @@ AppBar.propTypes = propTypes;
 AppBar.defaultProps = defaultProps;
 AppBar.whyDidYouRender = true;
 
-export default AppBar;
+export default memo(AppBar);
