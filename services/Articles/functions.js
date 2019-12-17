@@ -1,8 +1,10 @@
 import { useQuery } from '@apollo/react-hooks';
 
 import mockedArticle from './mockArticle';
+import mockedArticles from './mockArticles';
 import {
 	GET_ARTICLE_BY_TITLEID,
+	GET_ARTICLES,
 } from './queries';
 
 const formatArticle = (article) => {
@@ -34,5 +36,14 @@ export const getArticleByTitleId = (titleId) => {
 		loading,
 		error,
 		data: formattedArticle,
+	};
+};
+export const getArticles = () => {
+	const { loading, error, data } = useQuery(GET_ARTICLES);
+	
+	return {
+		loading,
+		error,
+		data: mockedArticles,
 	};
 };

@@ -9,3 +9,11 @@ export const GET_ARTICLE_BY_TITLEID = gql`
 		}
 	}
 `;
+export const GET_ARTICLES = gql`
+	query getArticles {
+		getArticles {
+			title
+			description
+		}
+	}
+`;

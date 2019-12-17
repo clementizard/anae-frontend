@@ -4,7 +4,6 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import ReactMarkdown from 'react-markdown';
 
 import IconButton from 'CommonComponents/IconButton';
-import Drawer from '../common/Drawer';
 import SectionImage from './SectionImage';
 import {
   Container,
@@ -96,10 +95,10 @@ const S1 = ({
         Icon={ArrowBack}
         containerStyles={IconContainerStyles}
       />
-      <Drawer
-        sections={articleReady && article.sections}
-        selectedSection={currentSection}
-      />
+      {/*<Drawer*/}
+      {/*  sections={articleReady && article.sections}*/}
+      {/*  selectedSection={currentSection}*/}
+      {/*/>*/}
       <SectionImage
         height={imageHeight}
         sections={articleReady && article.sections}

@@ -1,7 +1,7 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Img from 'react-image';
 
-import DeviceContext from 'Services/Device';
+import useWindowSize from 'react-use/lib/useWindowSize';
 import Logo from 'Components/public/Landing/Logo';
 import Background from 'Components/public/Landing/Background';
 import Links from 'Components/public/Landing/Links';
@@ -14,7 +14,7 @@ import { useHover } from './Tools';
 const BackgroundImage = '/Public/Landing/background.jpg';
 
 const Landing = () => {
-  const { width, height } = useContext(DeviceContext);
+  const { width, height } = useWindowSize();
   const [
     hovering,
     {

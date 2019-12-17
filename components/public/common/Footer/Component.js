@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Media } from 'Styles/common/Media';
 import S1Component from './S1';
@@ -24,5 +24,5 @@ Footer.propTypes = propTypes;
 Footer.defaultProps = defaultProps;
 Footer.whyDidYouRender = true;
 
-export default Footer;
+export default memo(Footer);
 

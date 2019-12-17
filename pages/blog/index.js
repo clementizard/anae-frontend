@@ -1,8 +1,3 @@
-import React from 'react';
+import Blog from 'PublicComponents/Blog';
 
-const Landing = () => {
-	return (<>BLOG LANDING</>);
-};
-Landing.whyDidYouRender = true;
-
-export default Landing;
+export default Blog;

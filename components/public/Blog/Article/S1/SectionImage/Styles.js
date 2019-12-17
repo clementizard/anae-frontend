@@ -46,16 +46,6 @@ export const Title = styled.div`
 	color: white;
 	text-shadow: 0 3px 6px rgba(0,0,0,0.5);
 `;
-export const ResizeBtn = styled(motion.div)`
-	width: 48px;
-	height: 48px;
-	cursor: pointer;
-	z-index: 2;
-	> button {
-	  color: rgba(255, 255, 255, 0.6);
-	  background: radial-gradient(circle,rgba(0,0,0,0.5) -200%,rgba(0,0,0,0) 60%);
-	}
-`;
 export const iconContainerStyles = {
 	position: 'fixed',
 	right: 12,

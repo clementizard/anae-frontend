@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useMemo } from 'react';
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
 
-import DeviceContext from 'Services/Device';
+import useWindowSize from 'react-use/lib/useWindowSize';
 import {
   transitionName,
   appearDuration,
@@ -11,7 +11,7 @@ import {
 import { propTypes, defaultProps, checkPropsEquality } from './Props';
 
 const Background = ({ children, onHover }) => {
-  const { width, height } = useContext(DeviceContext);
+  const { width, height } = useWindowSize();
   const diameter = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
   const windowLargerThanImage = width > 1620;
   const maxPossibleCirconference = (width * 0.9) > 600 ? 600 : (width * 0.9);

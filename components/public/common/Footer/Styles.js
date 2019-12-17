@@ -4,6 +4,7 @@ export const Container = styled.div`
 	height: auto;
 	position: relative;
 	padding: 24px;
+	margin-top: 24px;
 	&::before {
 		content: ' ';
 		position: absolute;

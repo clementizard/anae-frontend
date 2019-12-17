@@ -10,9 +10,9 @@ export const StyledDetails = styled(ExpansionPanelDetails)`
 	flex-direction: column;
 `;
 export const StyledA = styled.a`
-	margin: 16px 0;
+	padding: 16px 0;
 	cursor: pointer;
-	&:nth-child (1n + 1) {
+	&:nth-child(n + 2) {
 		border-top: solid 1px rgba(0, 0, 0, 0.3);
 	}
 `;
