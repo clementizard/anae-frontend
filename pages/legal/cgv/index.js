@@ -1,4 +1,5 @@
 import React from 'react';
+import { getLayout } from 'Layouts/public';
 
 const Component = () => {
 	return (
@@ -6,6 +7,6 @@ const Component = () => {
 		</>
 	);
 };
+Component.getLayout = getLayout;
 
 export default Component;
-
