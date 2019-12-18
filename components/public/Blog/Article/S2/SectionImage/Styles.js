@@ -9,15 +9,6 @@ export const Container = styled(({ height, ...props }) => <div {...props} />)`
   height: ${({height}) => height}px;
   width: 100%;
 `;
-export const Title = styled.div`
-	position: absolute;
-	bottom: 0;
-	font-size: 1.8rem;
-  font-weight: 600;
-  padding: 16px 24px;
-	color: white;
-	text-shadow: 0 3px 6px rgba(0,0,0,0.5);
-`;
 export const ImageContainer = styled(({ height, ...props }) => <div {...props} />)`
   height: ${({ height }) => height}px;
   position: relative;

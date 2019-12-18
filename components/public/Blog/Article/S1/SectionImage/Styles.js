@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import Typography from '@material-ui/core/Typography';
 
 export const Container = styled.div`
   position: absolute;
@@ -37,11 +38,9 @@ export const Image = styled(({ url, ...props }) => <motion.div {...props} />)`
   	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3));
   }
 `;
-export const Title = styled.div`
+export const Title = styled(props => <Typography variant="h4" {...props} />)`
 	position: absolute;
 	bottom: 0;
-	font-size: 1.8rem;
-  font-weight: 600;
   padding: 16px 24px;
 	color: white;
 	text-shadow: 0 3px 6px rgba(0,0,0,0.5);

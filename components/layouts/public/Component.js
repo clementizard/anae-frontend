@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import Nav from 'PublicComponents/common/Nav';
 import Footer from 'PublicComponents/common/Footer';
@@ -18,4 +18,4 @@ Public.propTypes = propTypes;
 Public.defaultProps = defaultProps;
 Public.whyDidYouRender = true;
 
-export default Public;
+export default memo(Public);

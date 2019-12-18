@@ -1,10 +1,3 @@
-import React from 'react';
+import Products from 'PublicComponents/Products';
 
-const Component = () => {
-	return (
-		<>
-		</>
-	);
-};
-
-export default Component;
+export default Products;

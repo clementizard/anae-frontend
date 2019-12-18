@@ -47,4 +47,29 @@ export const ItemContainer = styled(forwardRef(({ selected, ...props }, innerRef
   `}
 `;
 export const LinkButton = styled.div`
+  position: relative;
+  cursor: pointer;
+
+  &::before, &::after {
+  	content: ' ';
+  	position: absolute;
+  	bottom: -8px;
+  	height: 1px;
+  	width: 0;
+  	transition: width 250ms ease-in;
+  	background-color: rgba(0, 0, 0, 0.9);
+  }
+	&::before {
+  	left: 0;
+	}
+	&::after {
+  	right: 0;
+	}
+
+	&:hover {
+		color: rgba(0, 0, 0, 0.9);
+	}
+	&:hover::before, &:hover::after {
+		width: 50%;
+	}
 `;

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
+import Typography from '@material-ui/core/Typography';
 
 import { Links } from '../Tools';
 import {
@@ -22,16 +23,28 @@ const S2 = () => {
         if (!link.type) {
           children.push(
             <Link href={link.link} key={link.name}>
-              <StyledA>{link.name}</StyledA>
+              <StyledA>
+                <Typography variant="body1">
+                  {link.name}
+                </Typography>
+              </StyledA>
             </Link>
           );
         } else if (link.type === 'social') {
-          children.push(<StyledA href={link.link} target="_blank">{link.name}</StyledA>);
+          children.push(
+            <StyledA
+              href={link.link}
+              target="_blank"
+            >
+              <Typography variant="body1">
+                {link.name}
+              </Typography>
+            </StyledA>);
         }
       });
       out.push(
         <Section key={sectionId}>
-          <Title>{section.title}</Title>
+          <Title variant="h6">{section.title}</Title>
           <Details>
             {children}
           </Details>

@@ -1,12 +1,10 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { useRouter } from 'next/router';
 
 import { getLayout } from 'Layouts/public';
 import { getArticles } from 'Services/Articles';
-import {
-  Title,
-} from './Article/S1/SectionImage/Styles';
+import { Title } from './Article/S1/SectionImage/Styles';
 import {
   Container,
   StyledCard,
@@ -32,7 +30,7 @@ const Landing = () => {
                 image={article.image}
                 title={article.alt}
               />
-              <Title>
+              <Title variant="h5">
                 {article.title}
               </Title>
             </CardActionArea>
@@ -41,7 +39,7 @@ const Landing = () => {
       });
       setFormattedCards(out);
     }
-  }, [data]);
+  }, [data, loading]);
 
   return (
     <Container>

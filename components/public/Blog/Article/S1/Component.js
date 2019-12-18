@@ -2,6 +2,7 @@ import React, { Fragment, useRef, useState, useEffect, memo } from 'react';
 import { Waypoint } from 'react-waypoint';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import ReactMarkdown from 'react-markdown';
+import Typography from '@material-ui/core/Typography';
 
 import IconButton from 'CommonComponents/IconButton';
 import SectionImage from './SectionImage';

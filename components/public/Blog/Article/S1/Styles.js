@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
 
 export const Container = styled.div`
   height: var(--fullHeight);
@@ -16,14 +17,15 @@ export const Sections = styled(forwardRef((props, innerRef) => <div {...props} r
   background-color: white;
   box-shadow: inset 0px 6px 6px -3px rgba(0, 0, 0, 0.5);
 `;
-export const SectionTitle = styled.div`
-	font-size: 1.8rem;
-  font-weight: 600;
+export const SectionTitle = styled(props => <Typography {...props} variant="h4" />)`
   padding: 16px 0;
 `;
 export const SectionText = styled.div`
-  line-height: 25px;
-  font-size: 1.1rem;
+	font-size: 1rem;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: 0.00938em;
   padding: 20px 0;
 	color: rgba(0, 0, 0, 0.65);
 `;

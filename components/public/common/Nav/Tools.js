@@ -41,6 +41,7 @@ const createArticleSection = (sections) => {
 		const item = {
 			name: 'Article',
 			type: 'article',
+			target: 'section',
 			sub: [],
 		};
 		

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useRouter } from 'next/router';
 
 import { getArticleByTitleId } from 'Services/Articles';
@@ -36,4 +36,4 @@ Nav.propTypes = propTypes;
 Nav.defaultProps = defaultProps;
 Nav.whyDidYouRender = true;
 
-export default Nav;
+export default memo(Nav);

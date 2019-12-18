@@ -4,9 +4,7 @@ import Img from 'react-image';
 import ReactMarkdown from 'react-markdown';
 
 import SectionImage from './SectionImage';
-import {
-  SectionText,
-} from './Styles';
+import { SectionText } from '../S1/Styles';
 import { propTypes, defaultProps } from './Props';
 
 const S2 = ({
@@ -15,8 +13,7 @@ const S2 = ({
   loading,
 }) => {
   const articleReady = Boolean(!loading && article && article.sections);
-  const third = Math.round(height / 3); // 33% of the page
-  const imageHeight = third >= 350 ? 350 : third;
+  const imageHeight = height >= 1050 ? 350 : Math.round(height / 3); // 33% of the page
 
   const [currentSection, setCurrentSection] = useState(0);
 
@@ -53,7 +50,7 @@ const S2 = ({
               />
             )}
           />
-          <SectionText>
+          <SectionText style={{ padding: '20px 24px' }}>
             <ReactMarkdown source={section.text}/>
           </SectionText>
         </div>

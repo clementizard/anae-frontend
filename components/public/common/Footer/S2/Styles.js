@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { S2, S3, S4 } from 'Styles/common/Sizes';
+import Typography from '@material-ui/core/Typography';
+
+import { S2 } from 'Styles/common/Sizes';
 
 export const Container = styled.div`
 	display: grid;
@@ -7,7 +9,6 @@ export const Container = styled.div`
 	grid-gap: 26px;
 	padding: 0 26px;
 	font-size: 1.2rem;
-
 	@media (min-width: ${S2}px) {
 		grid-template-columns: repeat(4, 1fr);
 	}
@@ -15,10 +16,9 @@ export const Container = styled.div`
 export const Section = styled.div`
 
 `;
-export const Title = styled.div`
-	font-weight: 800;
-	margin-bottom: 12px;
-	font-size: 1.25rem;
+export const Title = styled(Typography)`
+	font-weight: 800 !important;
+	margin-bottom: 12px !important;
 `;
 export const Details = styled.div`
 	padding-left: 4px;

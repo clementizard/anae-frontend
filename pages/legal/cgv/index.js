@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { getLayout } from 'Layouts/public';
 
 const CGV = () => (

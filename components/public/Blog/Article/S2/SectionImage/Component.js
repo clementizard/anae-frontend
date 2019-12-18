@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
 
+import { Title } from '../../S1/SectionImage/Styles';
 import {
-  Title,
   ImageContainer,
   transitionName,
   appearDuration,
