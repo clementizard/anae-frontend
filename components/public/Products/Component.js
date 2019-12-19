@@ -1,20 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import { useRouter } from 'next/router';
 
 import { getLayout } from 'Layouts/public';
-import {} from './Styles';
-import { propTypes, defaultProps } from './Props';
+import { getArticles } from 'Services/Articles';
+import { Title } from './Article/S1/SectionImage/Styles';
+import {
+	Container,
+	StyledCard,
+	StyledCardMedia,
+} from './Styles';
 
 const Products = () => {
-  return (
-    <>
-      Products
-    </>
-  );
+	const router = useRouter();
+	const { loading, error, data } = getArticles();
+	const [formattedCards, setFormattedCards] = useState([]);
+
+	const handleClick = useCallback(id => () => {
+		router.push(`/blog/article/${id || 42}`);
+	});
+	useEffect(() => {
+		if (!loading) {
+			const out = [];
+			data.forEach((article, index) => {
+				out.push(
+					<StyledCard elevation={6} key={index}>
+						<CardActionArea onClick={handleClick(article.id)}>
+							<StyledCardMedia
+								image={article.image}
+								title={article.alt}
+							/>
+							<Title variant="h5">
+								{article.title}
+							</Title>
+						</CardActionArea>
+					</StyledCard>,
+				);
+			});
+			setFormattedCards(out);
+		}
+	}, [data, handleClick, loading]);
+
+	return (
+		<Container>
+			{formattedCards}
+		</Container>
+	);
 };
 Products.getLayout = getLayout;
-Products.propTypes = propTypes;
-Products.defaultProps = defaultProps;
 Products.whyDidYouRender = true;
 
 export default Products;
-
