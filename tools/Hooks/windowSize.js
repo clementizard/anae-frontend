@@ -2,12 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 
 const useWindowSize = () => {
 	const isClient = process.browser;
-	const getSize = useCallback(() => {
-		return {
-			width: isClient ? window.innerWidth : undefined,
-			height: isClient ? window.innerHeight : undefined,
-		};
-	}, []);
+	const getSize = useCallback(() => ({
+		width: isClient ? window.innerWidth : undefined,
+		height: isClient ? window.innerHeight : undefined,
+	}), []);
 	const [windowSize, setWindowSize] = useState(getSize());
 	
 	useEffect(() => {

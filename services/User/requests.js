@@ -5,4 +5,3 @@ export const getNewUser = async () => {
 		setTimeout(() => resolve(mock), 1000);
 	});
 };
-

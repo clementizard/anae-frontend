@@ -5,7 +5,10 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const withFonts = require('next-fonts');
 
 const nextConfig = {
-	target: 'serverless',
+	env: {
+		GRAPHQL_URL: process.env.GRAPHQL_URL,
+	},
+	// target: 'serverless',
 	analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
 	analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
 	bundleAnalyzerConfig: {

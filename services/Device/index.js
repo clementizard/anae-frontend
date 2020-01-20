@@ -3,7 +3,7 @@ import {
 	useDevice,
 } from './context';
 
-export default {
+export {
 	DeviceProvider,
 	useDevice,
 };

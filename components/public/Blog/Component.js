@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { useRouter } from 'next/router';
 
+import { useDevice } from 'Services/Device';
+import { useUserDispatch, initUser } from 'Services/User';
 import { getLayout } from 'Layouts/public';
 import { getArticles } from 'Services/Articles';
 import { Title } from './Article/S1/SectionImage/Styles';
@@ -13,12 +15,28 @@ import {
 
 const Landing = () => {
 	const router = useRouter();
+	const device = useDevice();
+	const dispatch = useUserDispatch();
+	const callInit = initUser(dispatch, device);
 	const { loading, error, data } = getArticles();
 	const [formattedCards, setFormattedCards] = useState([]);
 
+	// Init user
+	useEffect(() => {
+		if (!device.id) {
+			// Init with device
+			const {
+				setId,
+				...variables
+			} = device;
+			console.log('Init with device: ', device);
+			callInit({ variables, ssr: false });
+		}
+	}, []);
+
 	const handleClick = useCallback(id => () => {
 		router.push(`/blog/article/${id || 42}`);
-	});
+	}, []);
 	useEffect(() => {
 		if (!loading) {
 			const out = [];
@@ -39,15 +57,17 @@ const Landing = () => {
 			});
 			setFormattedCards(out);
 		}
-	}, [data, handleClick, loading]);
+	}, [data, loading]);
 
+	console.log('DEVICE ID: ', device.id);
+	
 	return (
 		<Container>
-			{formattedCards}
+			{/*{formattedCards}*/}
 		</Container>
 	);
 };
 Landing.getLayout = getLayout;
-Landing.whyDidYouRender = true;
+// Landing.whyDidYouRender = true;
 
 export default Landing;

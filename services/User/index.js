@@ -1,4 +1,4 @@
-import { updateUser } from './functions';
+import { initUser } from './functions';
 import {
 	UserProvider,
 	useUserDispatch,
@@ -9,5 +9,5 @@ export {
 	UserProvider,
 	useUserState,
 	useUserDispatch,
-	updateUser,
+	initUser,
 };

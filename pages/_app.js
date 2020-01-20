@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import App from 'next/app';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import { MediaContextProvider } from 'Styles/common/Media';
 import GlobalStyles from 'Styles/common/GlobalStyle';
 import { DeviceProvider } from 'Services/Device/context';
+import { UserProvider } from 'Services/User';
 import withApollo from 'Services/withApollo';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -15,7 +16,11 @@ if (process.env.NODE_ENV !== 'production') {
 const ContextProviders = ({ children, apollo }) => (
 	<MediaContextProvider>
 		<ApolloProvider client={apollo}>
-			{children}
+			<DeviceProvider>
+				<UserProvider>
+						{children}
+				</UserProvider>
+			</DeviceProvider>
 		</ApolloProvider>
 	</MediaContextProvider>
 );
@@ -23,16 +28,14 @@ const ContextProviders = ({ children, apollo }) => (
 class MyApp extends App {
 	render() {
 		const { Component, pageProps, apollo } = this.props;
-
 		const width = process.browser ? window.innerWidth : undefined;
 		const height = process.browser ? window.innerHeight : undefined;
 		const getLayout = Component.getLayout || (page => page);
+
 		return [
 			<GlobalStyles key="styles" width={width} height={height} />,
 			<ContextProviders key="contexts" apollo={apollo}>
-				{getLayout(
-						<Component {...pageProps} />
-				)}
+				{getLayout(<Component {...pageProps} />)}
 			</ContextProviders>,
 		];
 	}

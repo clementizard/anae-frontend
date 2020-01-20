@@ -2,12 +2,46 @@ import gql from 'graphql-tag';
 
 export const INIT = gql`
 	mutation init(
-		$width: Int
-		$height: Int
+		$deviceId: String
+	  $type: String
+	  $brand: String
+	  $model: String
+	  $width: Int
+	  $height: Int
+	  $clientType: String
+	  $clientName: String
+	  $clientVersion: String
+	  $clientEngine: String
+	  $clientEngineVersion: String
+	  $osName: String
+	  $osVersion: String
+	  $osPlatform: String
+	  $botName: String
+	  $botCategory: String
+	  $botUrl: String
+	  $botProducerName: String
+	  $botProducerUrl: String
 	) {
 		Init(
-		width: $width
-		height: $height
+	    deviceId: $deviceId
+      type: $type
+      brand: $brand
+      model: $model
+      width: $width
+      height: $height
+      clientType: $clientType
+      clientName: $clientName
+      clientVersion: $clientVersion
+      clientEngine: $clientEngine
+      clientEngineVersion: $clientEngineVersion
+      osName: $osName
+      osVersion: $osVersion
+      osPlatform: $osPlatform
+      botName: $botName
+      botCategory: $botCategory
+      botUrl: $botUrl
+      botProducerName: $botProducerName
+      botProducerUrl: $botProducerUrl
 	) {
 			success
 			token

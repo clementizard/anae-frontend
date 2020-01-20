@@ -1,31 +1,51 @@
-import { getNewUser } from './requests';
+import jwtDecode from 'jwt-decode';
+import { useMutation } from '@apollo/react-hooks';
 
-const formatNewUser = (data) => {
-	data.forEach((metric) => {
-		metric.onServices = [];
-		metric.offServices = [];
-		metric.services.forEach((service) => {
-			if (service.status === 'off') metric.offServices.push(service);
-			else metric.onServices.push(service);
-		});
-		metric.status = {
-			ok: !metric.offServices.length,
-			valid: metric.onServices.length,
-			total: metric.onServices.length + metric.offServices.length,
-		};
-	});
-	return data;
-};
+import {
+	INIT,
+	REGISTER,
+	LOGIN,
+} from './queries';
 
-export const updateUser = async (dispatch) => {
-	dispatch({ type: 'updateStart' });
-	try {
-		const data = await getNewUser();
-		dispatch({
-			type: 'updateSuccess',
-			payload: formatNewUser(data),
-		});
-	} catch (error) {
-		dispatch({ type: 'updateFail', payload: error });
+export const initUser = (dispatchUser, device) => {
+	const {
+		setId,
+		...variables
+	} = device;
+	const [callInit, { loading, error, data }] = useMutation(INIT);
+	
+	if (loading) dispatchUser({ type: 'initStart' });
+	
+	if (error) {
+		console.log('ERROR: ', error);
+		dispatchUser({ type: 'initFail', payload: error });
 	}
+	if (!loading && data) {
+		console.log('SUCCESS: ', data);
+		const {
+			success,
+			message,
+			token,
+		} = data.Init;
+		if (!success) dispatchUser({ type: 'initFail', payload: message });
+		else {
+			const {
+				userId,
+				deviceId,
+				roles,
+			} = jwtDecode(token);
+
+			console.log('DECODED: ', userId, deviceId, roles);
+			setId(deviceId);
+			dispatchUser({
+				type: 'initSuccess',
+				payload: {
+					userId,
+					roles,
+					token,
+				},
+			});
+		}
+	}
+	return callInit;
 };

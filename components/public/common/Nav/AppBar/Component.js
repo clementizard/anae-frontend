@@ -5,6 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 
+import { useUserState } from 'Services/User';
 import useAnimate from 'Hooks/animate';
 import {
 	LettersAnimated,
@@ -27,6 +28,7 @@ import { buildNavItems } from './Tools';
 const AppBar = ({
   article
 }) => {
+	const { status, data } = useUserState();
 	const router = useRouter();
 	const { id } = router.query;
 	const NavItems = useCallback(buildNavItems({ article }), []);
@@ -65,6 +67,8 @@ const AppBar = ({
 		return false;
 	};
 
+	console.log('In Appbar: ', status, data);
+	
 	return (
 		<Container>
 			<LogoContainer>
