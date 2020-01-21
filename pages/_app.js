@@ -4,8 +4,9 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 import { MediaContextProvider } from 'Styles/common/Media';
 import GlobalStyles from 'Styles/common/GlobalStyle';
-import { DeviceProvider } from 'Services/Device/context';
+import { DeviceProvider } from 'Services/Device';
 import { UserProvider } from 'Services/User';
+import { StatusProvider } from 'Services/Status';
 import withApollo from 'Services/withApollo';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -16,11 +17,13 @@ if (process.env.NODE_ENV !== 'production') {
 const ContextProviders = ({ children, apollo }) => (
 	<MediaContextProvider>
 		<ApolloProvider client={apollo}>
-			<DeviceProvider>
-				<UserProvider>
+			<StatusProvider>
+				<DeviceProvider>
+					<UserProvider>
 						{children}
-				</UserProvider>
-			</DeviceProvider>
+					</UserProvider>
+				</DeviceProvider>
+			</StatusProvider>
 		</ApolloProvider>
 	</MediaContextProvider>
 );

@@ -1,33 +1,38 @@
 import jwtDecode from 'jwt-decode';
 import { useMutation } from '@apollo/react-hooks';
 
+import { useDevice } from 'Services/Device';
+import { useUserDispatch } from 'Services/User';
+import { useStatusDispatch } from 'Services/Status';
+
 import {
 	INIT,
 	REGISTER,
 	LOGIN,
 } from './queries';
 
-export const initUser = (dispatchUser, device) => {
-	const {
-		setId,
-		...variables
-	} = device;
+const SESSION_KEY_USER = process.env.SESSION_KEY_USER;
+
+export const initUser = () => {
+	const dispatchUser = useUserDispatch();
+	const dispatchStatus = useStatusDispatch();
+	const { data: { id: deviceId }, onChange: handleDeviceChange } = useDevice();
 	const [callInit, { loading, error, data }] = useMutation(INIT);
-	
-	if (loading) dispatchUser({ type: 'initStart' });
-	
-	if (error) {
-		console.log('ERROR: ', error);
-		dispatchUser({ type: 'initFail', payload: error });
-	}
+
+	if (deviceId) return () => console.error('device id already exist');
+
+	if (loading) dispatchStatus({ type: 'start', payload: SESSION_KEY_USER });
+
+	if (error) dispatchStatus({ type: 'error', payload: { type: SESSION_KEY_USER, error } });
 	if (!loading && data) {
-		console.log('SUCCESS: ', data);
 		const {
-			success,
-			message,
-			token,
-		} = data.Init;
-		if (!success) dispatchUser({ type: 'initFail', payload: message });
+			Init: {
+				success,
+				message,
+				token,
+			},
+		} = data;
+		if (!success) dispatchStatus({ type: 'error', payload: { type: SESSION_KEY_USER, error: message } });
 		else {
 			const {
 				userId,
@@ -35,16 +40,16 @@ export const initUser = (dispatchUser, device) => {
 				roles,
 			} = jwtDecode(token);
 
-			console.log('DECODED: ', userId, deviceId, roles);
-			setId(deviceId);
+			handleDeviceChange({ id: deviceId });
 			dispatchUser({
-				type: 'initSuccess',
+				type: 'userInit',
 				payload: {
 					userId,
 					roles,
 					token,
 				},
 			});
+			dispatchStatus({ type: 'success', payload: SESSION_KEY_USER });
 		}
 	}
 	return callInit;

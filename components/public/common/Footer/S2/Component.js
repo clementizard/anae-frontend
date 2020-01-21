@@ -35,6 +35,7 @@ const S2 = () => {
             <StyledA
               href={link.link}
               target="_blank"
+              key={link.name}
             >
               <Typography variant="body1">
                 {link.name}

@@ -5,6 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 
+import { useStatusState } from 'Services/Status';
 import { useUserState } from 'Services/User';
 import useAnimate from 'Hooks/animate';
 import {
@@ -25,10 +26,9 @@ import {
 } from './Animations';
 import { buildNavItems } from './Tools';
 
-const AppBar = ({
-  article
-}) => {
-	const { status, data } = useUserState();
+const AppBar = ({ article }) => {
+	const userStatus = useStatusState();
+	const user = useUserState();
 	const router = useRouter();
 	const { id } = router.query;
 	const NavItems = useCallback(buildNavItems({ article }), []);
@@ -67,8 +67,6 @@ const AppBar = ({
 		return false;
 	};
 
-	console.log('In Appbar: ', status, data);
-	
 	return (
 		<Container>
 			<LogoContainer>
@@ -103,6 +101,7 @@ const AppBar = ({
 						</LinkButton>
 					</ItemContainer>
 				))}
+				{/*Login/Register/*/}
 			</Links>
 			{(NavItems[menuOpen] && NavItems[menuOpen].sub) && (
 				<Menu

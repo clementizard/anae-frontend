@@ -1,4 +1,8 @@
-import { createContext, useContext } from 'react';
+import React, {
+	useReducer,
+	createContext,
+	useContext,
+} from 'react';
 
 import defaultState from './default';
 import namedReducer from './reducer';
@@ -7,7 +11,7 @@ const NamedStateContext = createContext();
 const NamedDispatchContext = createContext();
 
 export const NamedProvider = ({ children }) => {
-	const [state, dispatch] = React.useReducer(namedReducer, defaultState);
+	const [state, dispatch] = useReducer(namedReducer, defaultState);
 	
 	return (
 		<NamedStateContext.Provider value={state}>

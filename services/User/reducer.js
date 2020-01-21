@@ -1,3 +1,6 @@
+const SESSION_KEY_USER = process.env.SESSION_KEY_USER;
+import { saveToSession } from '../Tools';
+
 export default (state, action) => {
 	const {
 		type,
@@ -5,17 +8,10 @@ export default (state, action) => {
 	} = action;
 	
 	switch (type) {
-		case 'initStart': return { ...state, status: 'loading' };
-		case 'initFail': return { ...state, status: 'error', data: payload };
-		case 'initSuccess': {
-			return {
-				...state,
-				status: 'success',
-				data: {
-					...state.data,
-					...payload,
-				},
-			};
+		case 'userInit': {
+			const finalState = { ...state, ...payload };
+			saveToSession(finalState, SESSION_KEY_USER);
+			return finalState;
 		}
 		default: throw new Error(`Unhandled action type: ${action.type}`);
 	}

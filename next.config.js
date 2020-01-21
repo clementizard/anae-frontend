@@ -7,6 +7,8 @@ const withFonts = require('next-fonts');
 const nextConfig = {
 	env: {
 		GRAPHQL_URL: process.env.GRAPHQL_URL,
+		LOCAL_KEY_DEVICE: process.env.LOCAL_KEY_DEVICE,
+		SESSION_KEY_USER: process.env.SESSION_KEY_USER,
 	},
 	// target: 'serverless',
 	analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),

@@ -1,46 +1,52 @@
-import React, { createContext, useContext, useState } from 'react';
-import DeviceDetector from "device-detector-js";
+import React, {
+	createContext,
+	useContext,
+	useState,
+	useCallback,
+	useMemo,
+} from 'react';
+import DeviceDetector from 'device-detector-js';
 
 import useWindowSize from 'Hooks/windowSize';
-import useUserAgent from 'Hooks/userAgent';
+import { formatDevice } from './Tools';
+import { getFromLocalOrDefault } from '../Tools';
 
+const defaultState = {};
 const deviceDetector = new DeviceDetector();
 const DeviceContext = createContext();
-
-const capitalize = ([firstLetter, ...rest]) => [firstLetter.toLocaleUpperCase(), ...rest].join('');
-
-const formatDevice = (device) => {
-	const out = {};
-
-	Object.keys(device).forEach((devKey) => {
-		if (device[devKey]) {
-			Object.keys(device[devKey]).forEach((info) => {
-				const value = device[devKey][info];
-				if (value) {
-					const key = devKey === 'device' ? info : `${devKey}${capitalize(info)}`;
-					out[key] = value;
-				}
-			});
-		}
-	});
-	return out;
-};
+const LOCAL_KEY_DEVICE = process.env.LOCAL_KEY_DEVICE;
 
 export const DeviceProvider = ({ children }) => {
+	const isClient = process.browser;
+	let defState = getFromLocalOrDefault(defaultState, LOCAL_KEY_DEVICE);
+
 	const { width, height } = useWindowSize();
-	const userAgent = useUserAgent();
-	const [id, setId] = useState();
-
-	let config = {};
-	if (userAgent) config = formatDevice(deviceDetector.parse(userAgent));
-
-	config.width = width;
-	config.height = height;
-	config.id = id;
-	config.setId = setId;
+	const userAgent = isClient ? navigator.userAgent : null;
 	
+	if (!Object.keys(defState).length) {
+		if (userAgent) defState = formatDevice(deviceDetector.parse(userAgent));
+
+		defState.width = width;
+		defState.height = height;
+	}
+
+	const [state, setState] = useState(defState);
+	const handleStateChange = useCallback((changes) => {
+		const newState = {
+			...state,
+			...changes,
+		};
+		setState(newState);
+		if (isClient) localStorage.setItem(LOCAL_KEY_DEVICE, JSON.stringify(newState));
+	}, []);
+
+	const values = useMemo(() => ({
+		onChange: handleStateChange,
+		data: state,
+	}), [state]);
+
 	return (
-		<DeviceContext.Provider value={config}>
+		<DeviceContext.Provider value={values}>
 			{children}
 		</DeviceContext.Provider>
 	)
