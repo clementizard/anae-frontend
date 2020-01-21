@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
-import { useUserDispatch, useUserState } from './context';
-import { updateUser } from './functions';
+import { initUser } from './functions';
+import { useDevice } from '../Device';
 
-export default () => {
-	const { status, data } = useUserState();
-	const dispatch = useUserDispatch();
+export const useInit = () => {
+	const { data: device } = useDevice();
+	const callInit = initUser();
 
 	useEffect(() => {
-		if (!data.length) updateUser(dispatch);
+		if (!device.id) callInit({ variables: device, ssr: false });
 	}, []);
-
-	return { status, data };
-}
+};

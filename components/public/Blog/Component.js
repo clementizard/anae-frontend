@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { useRouter } from 'next/router';
 
-import { useDevice } from 'Services/Device';
-import { initUser } from 'Services/User';
 import { getLayout } from 'Layouts/public';
 import { getArticles } from 'Services/Articles';
 import { Title } from './Article/S1/SectionImage/Styles';
@@ -15,17 +13,8 @@ import {
 
 const Landing = () => {
 	const router = useRouter();
-	const { data: device } = useDevice();
-	const callInit = initUser();
 	const { loading, error, data } = getArticles();
 	const [formattedCards, setFormattedCards] = useState([]);
-
-	// Init user
-	useEffect(() => {
-		if (!device.id) {
-			callInit({ variables: device, ssr: false });
-		}
-	}, []);
 
 	const handleClick = useCallback(id => () => {
 		router.push(`/blog/article/${id || 42}`);

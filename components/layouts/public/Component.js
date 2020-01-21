@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import Nav from 'PublicComponents/common/Nav';
 import Footer from 'PublicComponents/common/Footer';
 import { Inner } from './Styles';
-import { propTypes, defaultProps } from './Props';
+import { propTypes } from './Props';
 
 const Public = ({ children }) => (
 	<>
@@ -15,7 +15,6 @@ const Public = ({ children }) => (
 	</>
 );
 Public.propTypes = propTypes;
-Public.defaultProps = defaultProps;
 Public.whyDidYouRender = true;
 
 export default memo(Public);

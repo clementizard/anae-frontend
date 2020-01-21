@@ -8,6 +8,7 @@ const nextConfig = {
 	env: {
 		GRAPHQL_URL: process.env.GRAPHQL_URL,
 		LOCAL_KEY_DEVICE: process.env.LOCAL_KEY_DEVICE,
+		LOCAL_KEY_STATUS: process.env.LOCAL_KEY_STATUS,
 		SESSION_KEY_USER: process.env.SESSION_KEY_USER,
 	},
 	// target: 'serverless',
@@ -29,6 +30,7 @@ const nextConfig = {
 		config.resolve.alias['Layouts'] = path.join(__dirname, 'components/layouts');
 		config.resolve.alias['CommonComponents'] = path.join(__dirname, 'components/common');
 		config.resolve.alias['PublicComponents'] = path.join(__dirname, 'components/public');
+		config.resolve.alias['AdminComponents'] = path.join(__dirname, 'components/admin');
 		config.resolve.alias['Services'] = path.join(__dirname, 'services');
 		config.resolve.alias['Public'] = path.join(__dirname, 'public');
 		config.resolve.alias['Styles'] = path.join(__dirname, 'styles');
