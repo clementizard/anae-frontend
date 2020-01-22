@@ -1,12 +1,3 @@
-import React from 'react';
+import Component from 'PublicComponents/Auth/Login';
 
-import { getLayout } from 'Layouts/public';
-
-const Login = () => (
-	<div>
-
-	</div>
-);
-Login.getLayout = getLayout;
-
-export default Login;
+export default Component;
