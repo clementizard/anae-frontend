@@ -13,7 +13,9 @@ export const RegisterSchema = Yup.object().shape({
 	password: Yup.string()
 		.min(6, 'Le mot de passe doit avoir au moins 6 caracteres')
 		.required('Mot de passe requis'),
-	legal: Yup.bool().required('Vous devez accepter les termes et conditions d\'utilisation pour continuer'),
+	legal: Yup.boolean(true)
+		.required('Vous devez accepter les termes et conditions d\'utilisation pour continuer')
+		.oneOf([true], 'Vous devez accepter les termes et conditions d\'utilisation pour continuer'),
 	newsletter: Yup.bool(),
 	// .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])/,
 	//   { message: 'Le mot de passe doit avoir au moins une lettre minuscule, majuscule, un chiffre et un caractere special' })
