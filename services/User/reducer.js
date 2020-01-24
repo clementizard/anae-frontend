@@ -8,11 +8,12 @@ export default (state, action) => {
 	} = action;
 	
 	switch (type) {
-		case 'userInit': {
+		case 'userRegister':
+		case 'userInit':
+			console.log('REGISTER: ', type, payload);
 			const finalState = { ...state, ...payload };
 			saveToSession(finalState, SESSION_KEY_USER);
 			return finalState;
-		}
 		default: throw new Error(`Unhandled action type: ${action.type}`);
 	}
 };

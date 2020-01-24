@@ -15,7 +15,7 @@ const Footer = () => {
       <Media at="s1"><S1Component /></Media>
       <Media greaterThanOrEqual="s2"><S2Component /></Media>
       <BottomText>
-        © 2019 Anae
+        © 2020 Anae
       </BottomText>
     </Container>
   );

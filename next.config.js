@@ -29,6 +29,7 @@ const nextConfig = {
 		config.resolve.alias['Components'] = path.join(__dirname, 'components');
 		config.resolve.alias['Layouts'] = path.join(__dirname, 'components/layouts');
 		config.resolve.alias['CommonComponents'] = path.join(__dirname, 'components/common');
+		config.resolve.alias['Inputs'] = path.join(__dirname, 'components/common/Inputs');
 		config.resolve.alias['PublicComponents'] = path.join(__dirname, 'components/public');
 		config.resolve.alias['AdminComponents'] = path.join(__dirname, 'components/admin');
 		config.resolve.alias['Services'] = path.join(__dirname, 'services');

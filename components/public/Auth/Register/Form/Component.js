@@ -1,79 +1,17 @@
-import React, {useCallback, useState} from 'react';
-import { Field, Form, Formik } from 'formik';
-import {Checkbox, TextField} from 'formik-material-ui';
+import React, { useCallback, useState } from 'react';
+import { Form, Formik } from 'formik';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
 
+import Text from 'Inputs/Text';
+import Checkbox from 'Inputs/Checkbox';
 import { propTypes, defaultProps } from './Props';
 import { initialValues, RegisterSchema } from './Tools';
-
-
-const Text = ({ name, ...props }) => (
-  <TextField
-    key={name}
-    id={name}
-    name={name}
-    variant="outlined"
-    fullWidth
-    style={{ marginBottom: 24 }}
-    {...props}
-  />
-);
-
-
-const CheckboxField = ({
-  name,
-  label,
-  disabled,
-  containerStyle,
-  ...props
-}) => (
-  <FormControlLabel
-    disabled={disabled}
-    label={label}
-    style={containerStyle}
-    control={
-      <Field
-        id={name}
-        name={name}
-        type="checkbox"
-        {...props}
-        component={props => <Checkbox {...props} name={name} />}
-      />
-    }
-  />
-);
-
-const CheckboxWithErrorField = ({
-  disabled,
-  errors,
-  label,
-  name,
-  ...props
-}) => (
-  <FormControl
-    error={Boolean(errors[name])}
-    style={{ marginBottom: 8 }}
-    disabled={disabled}
-  >
-    <CheckboxField
-      name={name}
-      label={label}
-      disabled={disabled}
-      {...props}
-    />
-    <FormHelperText>{errors[name]}</FormHelperText>
-  </FormControl>
-
-);
 
 const RegisterForm = ({ handleRegister }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -81,35 +19,45 @@ const RegisterForm = ({ handleRegister }) => {
   const handlePasswordVisibilityChange = useCallback(() => setPasswordVisible(!passwordVisible), [passwordVisible]);
   const handleMouseDownPassword = useCallback(e => e.preventDefault(), []);
 
+  const textStyle = { marginBottom: 24 };
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleRegister}
       validationSchema={RegisterSchema}
     >
-      {({ isSubmitting, errors }) => (
+      {({ isSubmitting, errors: { legal: legalE }, touched: { legal: legalT } }) => (
         <Form>
           <Text
             name="lastname"
             label="Nom"
             InputProps={{ labelWidth: 35 }}
+            form
+            containerStyle={textStyle}
           />
           <br />
           <Text
             name="firstname"
             label="Prenom"
             InputProps={{ labelWidth: 60 }}
+            form
+            containerStyle={textStyle}
           />
           <br />
           <Text
             name="email"
             label="Email *"
             InputProps={{ labelWidth: 50 }}
+            form
+            containerStyle={textStyle}
           />
           <Text
             name="password"
             label="Mot de passe *"
             type={passwordVisible ? 'text' : 'password'}
+            form
+            containerStyle={textStyle}
             InputProps={{
               labelWidth: 108,
               endAdornment: (
@@ -125,21 +73,22 @@ const RegisterForm = ({ handleRegister }) => {
               )
             }}
           />
-          <CheckboxWithErrorField
-            label="J'accepte les termes et conditions d'utilisation *"
+          <Checkbox
             name="legal"
+            label="J'accepte les termes et conditions d'utilisation *"
             disabled={isSubmitting}
-            errors={errors}
+            error={legalT && legalE}
+            containerStyle={{ marginBottom: 8, marginLeft: 8 }}
           />
-          <br />
-          <CheckboxField
+          <Checkbox
             name="newsletter"
             label="S'abonner a notre newsletter"
+            disabled={isSubmitting}
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite />}
-            containerStyle={{ marginBottom: 24 }}
-            disabled={isSubmitting}
+            containerStyle={{ marginBottom: 24, marginLeft: 8 }}
           />
+          <br />
           <Button
             variant="contained"
             disabled={isSubmitting}

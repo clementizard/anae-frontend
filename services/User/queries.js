@@ -55,12 +55,14 @@ export const REGISTER = gql`
 		$password: String!
 		$firstname: String
 		$lastname: String
+		$newsletter: Boolean
 	) {
 		Register(
 		email: $email
 		password: $password
 		firstname: $firstname
 		lastname: $lastname
+		newsletter: $newsletter
 	) {
 			success
 			token

@@ -30,9 +30,10 @@ export const StatusProvider = ({ children }) => {
 	)
 };
 
-export const useStatusState = () => {
+export const useStatusState = (key) => {
 	const context = useContext(StatusStateContext);
 	if (context === undefined) throw new Error('useStatusState must be used within a StatusProvider');
+	if (Boolean(key)) return context[key];
 	return context;
 };
 export const useStatusDispatch = () => {

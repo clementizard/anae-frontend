@@ -1,4 +1,7 @@
-import { initUser } from './functions';
+import {
+	initUser,
+	registerUser,
+} from './functions';
 import {
 	UserProvider,
 	useUserDispatch,
@@ -10,4 +13,5 @@ export {
 	useUserState,
 	useUserDispatch,
 	initUser,
+	registerUser,
 };
