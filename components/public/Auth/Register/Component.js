@@ -1,5 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Link from 'next/link'
 
 import {
   useUserState,
@@ -8,6 +9,7 @@ import {
 import { useStatusState } from 'Services/Status';
 import { getLayout } from 'Layouts/public';
 import { Container } from '../common/Styles';
+import { Inner, LinkButton } from './Styles';
 import { propTypes, defaultProps } from './Props';
 import Form from './Form';
 
@@ -19,16 +21,17 @@ const Register = () => {
   const callRegister = registerUser();
 
   const handleRegister = values => callRegister({ variables: values, ssr: false });
-  
-  console.log('Status: ', userStatus);
-  console.log('State: ', userState);
+
   return (
     <Container>
-      <Typography variant="h4" style={{ marginBottom: 40 }}>Creer un compte</Typography>
-      <Form
-        handleRegister={handleRegister}
-        loading={userStatus === 'loading'}
-      />
+      <Inner>
+        <Typography variant="h4">Creer un compte</Typography>
+        <Typography variant="span"><Link href="/auth/login"><LinkButton>J'ai deja un compte</LinkButton></Link></Typography>
+        <Form
+          handleRegister={handleRegister}
+          loading={userStatus === 'loading'}
+        />
+      </Inner>
     </Container>
   );
 };

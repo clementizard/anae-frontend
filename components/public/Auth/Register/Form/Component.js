@@ -10,12 +10,13 @@ import Button from '@material-ui/core/Button';
 
 import Text from 'Inputs/Text';
 import Checkbox from 'Inputs/Checkbox';
+import Link from 'CommonComponents/Link';
 import { propTypes, defaultProps } from './Props';
 import { initialValues, RegisterSchema } from './Tools';
 
 const RegisterForm = ({ handleRegister }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  
+
   const handlePasswordVisibilityChange = useCallback(() => setPasswordVisible(!passwordVisible), [passwordVisible]);
   const handleMouseDownPassword = useCallback(e => e.preventDefault(), []);
 
@@ -34,30 +35,28 @@ const RegisterForm = ({ handleRegister }) => {
             label="Nom"
             InputProps={{ labelWidth: 35 }}
             form
-            containerStyle={textStyle}
+            containerStyle={{ ...textStyle, gridArea: 'lastname' }}
           />
-          <br />
           <Text
             name="firstname"
             label="Prenom"
             InputProps={{ labelWidth: 60 }}
             form
-            containerStyle={textStyle}
+            containerStyle={{ ...textStyle, gridArea: 'firstname' }}
           />
-          <br />
           <Text
             name="email"
             label="Email *"
             InputProps={{ labelWidth: 50 }}
             form
-            containerStyle={textStyle}
+            containerStyle={{ ...textStyle, gridArea: 'email' }}
           />
           <Text
             name="password"
             label="Mot de passe *"
             type={passwordVisible ? 'text' : 'password'}
             form
-            containerStyle={textStyle}
+            containerStyle={{ ...textStyle, gridArea: 'password' }}
             InputProps={{
               labelWidth: 108,
               endAdornment: (
@@ -78,7 +77,7 @@ const RegisterForm = ({ handleRegister }) => {
             label="J'accepte les termes et conditions d'utilisation *"
             disabled={isSubmitting}
             error={legalT && legalE}
-            containerStyle={{ marginBottom: 8, marginLeft: 8 }}
+            containerStyle={{ marginBottom: 8, gridArea: 'legal' }}
           />
           <Checkbox
             name="newsletter"
@@ -86,18 +85,24 @@ const RegisterForm = ({ handleRegister }) => {
             disabled={isSubmitting}
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite />}
-            containerStyle={{ marginBottom: 24, marginLeft: 8 }}
+            containerStyle={{ marginBottom: 24, gridArea: 'newsletter' }}
           />
-          <br />
           <Button
             variant="contained"
             disabled={isSubmitting}
             type="submit"
             fullWidth
             color="primary"
+            style={{ marginBottom: 12, gridArea: 'submit' }}
           >
             Valider
           </Button>
+          <Link
+            type="button"
+            href="/auth/recover"
+            label="J'ai oublie mon mot de passe"
+            containerStyle={{ gridArea: 'recover' }}
+          />
         </Form>
       )}
     </Formik>
