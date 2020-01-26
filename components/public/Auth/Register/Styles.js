@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { S1 } from 'Sizes';
+
 export const Inner = styled.div`
 	height: 100vh;
 	// Title
@@ -7,14 +9,8 @@ export const Inner = styled.div`
 		margin-bottom: 15px;
 	}
 	// Link
-	& > span {
-		& > div {
-			margin-bottom: 30px;
-		}
-		& > a {
-			text-decoration: none;
-			color: inherit;
-		}
+	& > h6 {
+		margin-bottom: 30px;
 	}
 	// Form
 	& > form {
@@ -28,36 +24,20 @@ export const Inner = styled.div`
 			"password"
 			"legal"
 			"newsletter"
-			"submit"
-			"recover";
-	}
-`;
+			"error"
+			"submit";
 
-export const LinkButton = styled.div`
-  position: relative;
-  cursor: pointer;
-  width: fit-content;
-
-  &::before, &::after {
-  	content: ' ';
-  	position: absolute;
-  	bottom: -8px;
-  	height: 1px;
-  	width: 0;
-  	transition: width 250ms ease-in;
-  	background-color: rgba(0, 0, 0, 0.9);
-  }
-	&::before {
-  	left: 0;
-	}
-	&::after {
-  	right: 0;
-	}
-
-	&:hover {
-		color: rgba(0, 0, 0, 0.9);
-	}
-	&:hover::before, &:hover::after {
-		width: 50%;
+		@media (min-width: ${S1}px) {
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 24px;
+			grid-template-areas: 
+				"firstname lastname"
+				"email email"
+				"password password"
+				"legal legal"
+				"newsletter newsletter"
+				"error error"
+				"submit submit";
+		}
 	}
 `;

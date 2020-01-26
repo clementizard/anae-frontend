@@ -1,5 +1,6 @@
-const LOCAL_KEY_STATUS = process.env.LOCAL_KEY_STATUS;
 import { saveToLocal } from '../Tools';
+
+const { LOCAL_KEY_STATUS } = process.env;
 
 const updateAndSave = (state, payload, value) => {
 	const finalState = { ...state, [payload]: value };
@@ -12,15 +13,15 @@ export default (state, action) => {
 		type,
 		payload,
 	} = action;
-	
+
 	switch (type) {
-		case 'start': return updateAndSave(state, payload, 'loading');
-		case 'error': {
-			const { type: entity, error } = payload;
-			console.error(error);
-			return updateAndSave(state, entity, 'error');
-		}
-		case 'success': return updateAndSave(state, payload, 'success');
-		default: throw new Error(`Unhandled action type: ${action.type}`);
+	case 'start': return updateAndSave(state, payload, 'loading');
+	case 'error': {
+		const { type: entity, error, from } = payload;
+		console.error(error);
+		return updateAndSave(state, entity, from ? { [from]: 'error' } : 'error');
+	}
+	case 'success': return updateAndSave(state, payload, 'success');
+	default: throw new Error(`Unhandled action type: ${action.type}`);
 	}
 };

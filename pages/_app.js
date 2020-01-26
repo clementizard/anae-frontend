@@ -1,6 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { PageTransition } from 'next-page-transitions';
 
 import { MediaContextProvider } from 'Styles/common/Media';
 import GlobalStyles from 'Styles/common/GlobalStyle';
@@ -29,6 +30,16 @@ const ContextProviders = ({ children, apollo }) => (
 );
 
 class MyApp extends App {
+	static async getInitialProps({ Component, ctx }) {
+		let pageProps = {};
+
+		if (Component.getInitialProps) {
+			pageProps = await Component.getInitialProps(ctx);
+		}
+
+		return { pageProps };
+	}
+
 	render() {
 		const { Component, pageProps, apollo } = this.props;
 		const width = process.browser ? window.innerWidth : undefined;
@@ -38,7 +49,11 @@ class MyApp extends App {
 		return [
 			<GlobalStyles key="styles" width={width} height={height} />,
 			<ContextProviders key="contexts" apollo={apollo}>
-				{getLayout(<Component {...pageProps} />)}
+				{getLayout(
+					<PageTransition timeout={300} classNames="page-transition">
+						<Component {...pageProps} />
+					</PageTransition>,
+				)}
 			</ContextProviders>,
 		];
 	}

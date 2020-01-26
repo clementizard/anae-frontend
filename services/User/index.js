@@ -1,7 +1,7 @@
 import {
-	initUser,
-	registerUser,
-} from './functions';
+	useUser,
+	useInit,
+} from './hook';
 import {
 	UserProvider,
 	useUserDispatch,
@@ -12,6 +12,6 @@ export {
 	UserProvider,
 	useUserState,
 	useUserDispatch,
-	initUser,
-	registerUser,
+	useUser,
+	useInit,
 };

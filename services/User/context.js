@@ -13,7 +13,10 @@ const UserStateContext = createContext();
 const UserDispatchContext = createContext();
 
 export const UserProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(userReducer, getFromSessionOrDefault(defaultState, SESSION_KEY_USER));
+	const [state, dispatch] = useReducer(
+		userReducer,
+		getFromSessionOrDefault(defaultState, SESSION_KEY_USER),
+	);
 
 	return (
 		<UserStateContext.Provider value={state}>
@@ -21,7 +24,7 @@ export const UserProvider = ({ children }) => {
 				{children}
 			</UserDispatchContext.Provider>
 		</UserStateContext.Provider>
-	)
+	);
 };
 
 export const useUserState = () => {

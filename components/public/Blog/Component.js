@@ -40,7 +40,7 @@ const Landing = () => {
 			setFormattedCards(out);
 		}
 	}, [data, loading]);
-	
+
 	return (
 		<Container>
 			{/*{formattedCards}*/}
