@@ -14,8 +14,8 @@ const LOCAL_KEY_STATUS = process.env.LOCAL_KEY_STATUS;
 const LOCAL_KEY_DEVICE = process.env.LOCAL_KEY_DEVICE;
 const SESSION_KEY_USER = process.env.SESSION_KEY_USER;
 const defaultState = {
-	[LOCAL_KEY_DEVICE]: 'loading',
-	[SESSION_KEY_USER]: 'loading',
+	[LOCAL_KEY_DEVICE]: 'initial',
+	[SESSION_KEY_USER]: 'initial',
 };
 
 export const StatusProvider = ({ children }) => {

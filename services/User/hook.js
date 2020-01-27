@@ -81,9 +81,10 @@ export const useUser = (requestId) => {
 export const useInit = () => {
 	const { data: device } = useDevice();
 	const { token } = useUserState();
+	const userStatus = useStatusState(SESSION_KEY_USER);
 	const callInit = useUser('init');
 
 	useEffect(() => {
-		if (!device.id || !token) callInit({ variables: device, ssr: false });
+		if ((!device.id || !token) && (userStatus === 'initial')) callInit({ variables: device, ssr: false });
 	}, []);
 };
