@@ -43,7 +43,7 @@ const Landing = () => {
 
 	return (
 		<Container>
-			{/*{formattedCards}*/}
+			{formattedCards}
 		</Container>
 	);
 };
